@@ -4,13 +4,14 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>第八章：用户进程 · GitBook</title>
+        <title>第八章：进程 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
         
         
         
+    
     
     <link rel="stylesheet" href="../gitbook/style.css">
 
@@ -37,6 +38,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
                 
             
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="part1_1.html">
+            
+                <a href="part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="part2.html">
             
                 <a href="part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="part3.html">
             
                 <a href="part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="part4.html">
             
                 <a href="part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="part5.html">
             
                 <a href="part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -975,7 +1041,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >第八章：用户进程</a>
+        <a href=".." >第八章：进程</a>
     </h1>
 </div>
 
@@ -997,7 +1063,7 @@
 <li>&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E3A;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x670D;&#x52A1;</li>
 <li>&#x89E3;&#x6790; ELF &#x683C;&#x5F0F;&#x7684;&#x7528;&#x6237;&#x7A0B;&#x5E8F;</li>
 <li>&#x4E3A;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</li>
-<li>&#x521B;&#x5EFA;&#x7528;&#x6237;&#x8FDB;&#x7A0B;</li>
+<li>&#x521B;&#x5EFA;&#x5E76;&#x8FD0;&#x884C;&#x8FDB;&#x7A0B;</li>
 </ul>
 <p><div id="page-footer" class="localized-footer"><hr><p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
@@ -1058,12 +1124,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第八章：用户进程","level":"1.10","depth":1,"next":{"title":"[编写用户程序]","level":"1.10.1","depth":2,"path":"chapter8/part1.md","ref":"chapter8/part1.md","articles":[]},"previous":{"title":"总结与展望","level":"1.9.5","depth":2,"path":"chapter7/part5.md","ref":"chapter7/part5.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter8/introduction.md","mtime":"2019-12-14T22:31:45.015Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第八章：进程","level":"1.10","depth":1,"next":{"title":"[编写用户程序]","level":"1.10.1","depth":2,"path":"chapter8/part1.md","ref":"chapter8/part1.md","articles":[]},"previous":{"title":"总结与展望","level":"1.9.5","depth":2,"path":"chapter7/part5.md","ref":"chapter7/part5.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter8/introduction.md","mtime":"2020-01-30T07:20:15.444Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1077,6 +1144,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1103,6 +1174,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

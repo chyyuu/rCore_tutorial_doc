@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -990,16 +1056,13 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;&#x4E0E;&#x5207;&#x6362;&#x6D4B;&#x8BD5;">&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;&#x4E0E;&#x5207;&#x6362;&#x6D4B;&#x8BD5;</h2>
+                                <h2 id="&#x6D4B;&#x8BD5;&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;&#x4E0E;&#x5207;&#x6362;">&#x6D4B;&#x8BD5;&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;&#x4E0E;&#x5207;&#x6362;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/8cb1a4be" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch6-pa4" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
 <p>&#x6211;&#x4EEC;&#x60F3;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x662F;&#xFF1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x7EBF;&#x7A0B;&#xFF0C;&#x4ECE;&#x542F;&#x52A8;&#x7EBF;&#x7A0B;&#x5207;&#x6362;&#x5230;&#x4E34;&#x65F6;&#x7EBF;&#x7A0B;&#xFF0C;&#x518D;&#x5207;&#x6362;&#x56DE;&#x6765;&#x3002;</p>
 <p>&#x4E34;&#x65F6;&#x7EBF;&#x7A0B;&#x5165;&#x53E3;&#x70B9;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/mod.rs</span>
-
-<span class="token keyword">use</span> structs<span class="token punctuation">::</span>Thread<span class="token punctuation">;</span>
-
 <span class="token attribute attr-name">#[no_mangle]</span>
 <span class="token keyword">pub</span> <span class="token keyword">extern</span> <span class="token string">&quot;C&quot;</span> <span class="token keyword">fn</span> <span class="token function">temp_thread</span><span class="token punctuation">(</span>from_thread<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> Thread<span class="token punctuation">,</span> current_thread<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> Thread<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;I&apos;m leaving soon, but I still want to say: Hello world!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1008,7 +1071,6 @@
 </code></pre>
 <p>&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x4E2D;&#x6709;&#x4E00;&#x4E2A; <code>from_thread</code> &#xFF0C;&#x5B83;&#x672C;&#x5E94;&#x4EE3;&#x8868;&#x542F;&#x52A8;&#x7EBF;&#x7A0B;&#x3002;&#x4F46;&#x662F;&#x8EAB;&#x5904;&#x542F;&#x52A8;&#x7EBF;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x6784;&#x9020;&#x4E00;&#x4E2A; <code>Thread</code> &#x5B9E;&#x4F8B;&#x8868;&#x793A;&#x5176;&#x81EA;&#x8EAB;&#x5462;&#xFF1F;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/context.rs</span>
-
 <span class="token keyword">impl</span> Context <span class="token punctuation">{</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">null</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> Context <span class="token punctuation">{</span>
         Context <span class="token punctuation">{</span> content_addr<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">}</span>
@@ -1016,7 +1078,6 @@
 <span class="token punctuation">}</span>
 
 <span class="token comment">// src/process/structs.rs</span>
-
 <span class="token keyword">impl</span> Thread <span class="token punctuation">{</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">get_boot_thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> Box<span class="token operator">&lt;</span>Thread<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
         Box<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>Thread <span class="token punctuation">{</span>
@@ -1044,24 +1105,6 @@
     <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;switched back from temp_thread!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">loop</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-
-<span class="token comment">// src/init.rs</span>
-
-<span class="token attribute attr-name">#[no_mangle]</span>
-<span class="token keyword">pub</span> <span class="token keyword">extern</span> <span class="token string">&quot;C&quot;</span> <span class="token keyword">fn</span> <span class="token function">rust_main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">!</span> <span class="token punctuation">{</span>
-    <span class="token keyword">crate</span><span class="token punctuation">::</span>interrupt<span class="token punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">extern</span> <span class="token string">&quot;C&quot;</span> <span class="token punctuation">{</span>
-        <span class="token keyword">fn</span> <span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">crate</span><span class="token punctuation">::</span>memory<span class="token punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>
-        <span class="token punctuation">(</span><span class="token punctuation">(</span>end <span class="token keyword">as</span> usize <span class="token operator">-</span> KERNEL_BEGIN_VADDR <span class="token operator">+</span> KERNEL_BEGIN_PADDR<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> <span class="token number">12</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
-        PHYSICAL_MEMORY_END <span class="token operator">&gt;&gt;</span> <span class="token number">12</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">crate</span><span class="token punctuation">::</span>process<span class="token punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">crate</span><span class="token punctuation">::</span>timer<span class="token punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">loop</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x7EC8;&#x4E8E;&#x80FD;&#x591F; <code>make run</code> &#x770B;&#x4E00;&#x4E0B;&#x7ED3;&#x679C;&#x5566;&#xFF01;</p>
 <blockquote>
@@ -1070,7 +1113,7 @@
 switched back from temp_thread!
 </code></pre></blockquote>
 <p>&#x53EF;&#x89C1;&#x6211;&#x4EEC;&#x5207;&#x6362;&#x5230;&#x4E86;&#x4E34;&#x65F6;&#x7EBF;&#x7A0B;&#xFF0C;&#x53C8;&#x5207;&#x6362;&#x4E86;&#x56DE;&#x6765;&#xFF01;&#x6D4B;&#x8BD5;&#x6210;&#x529F;&#xFF01;</p>
-<p>&#x622A;&#x81F3;&#x76EE;&#x524D;&#x6240;&#x6709;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/8cb1a4be" target="_blank">&#x8FD9;&#x91CC;</a>&#x627E;&#x5230;&#x4EE5;&#x4F9B;&#x53C2;&#x8003;&#x3002;</p>
+<p>&#x622A;&#x81F3;&#x76EE;&#x524D;&#x6240;&#x6709;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/ch6-pa4" target="_blank">&#x8FD9;&#x91CC;</a>&#x627E;&#x5230;&#x4EE5;&#x4F9B;&#x53C2;&#x8003;&#x3002;</p>
 <p><div id="page-footer" class="localized-footer"><hr><p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <div id="gitalk-container"></div>
@@ -1130,12 +1173,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"[内核线程创建与切换测试]","level":"1.8.4","depth":2,"next":{"title":"总结与展望","level":"1.8.5","depth":2,"path":"chapter6/part5.md","ref":"chapter6/part5.md","articles":[]},"previous":{"title":"内核线程初始化","level":"1.8.3","depth":2,"path":"chapter6/part3.md","ref":"chapter6/part3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter6/part4.md","mtime":"2019-12-10T15:47:36.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"[内核线程创建与切换测试]","level":"1.8.4","depth":2,"next":{"title":"总结与展望","level":"1.8.5","depth":2,"path":"chapter6/part5.md","ref":"chapter6/part5.md","articles":[]},"previous":{"title":"内核线程初始化","level":"1.8.3","depth":2,"path":"chapter6/part3.md","ref":"chapter6/part3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter6/part4.md","mtime":"2020-01-29T04:23:40.504Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1149,6 +1193,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1175,6 +1223,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

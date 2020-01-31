@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -992,14 +1058,130 @@
                                 
                                 <h2 id="&#x7269;&#x7406;&#x5185;&#x5B58;&#x63A2;&#x6D4B;&#x4E0E;&#x7BA1;&#x7406;">&#x7269;&#x7406;&#x5185;&#x5B58;&#x63A2;&#x6D4B;&#x4E0E;&#x7BA1;&#x7406;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/695d8a2c" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch4-pa1" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
 <p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x7269;&#x7406;&#x5185;&#x5B58;&#x901A;&#x5E38;&#x662F;&#x4E00;&#x7247; RAM &#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;&#x5B83;&#x770B;&#x6210;&#x4E00;&#x4E2A;&#x4EE5;&#x5B57;&#x8282;&#x4E3A;&#x5355;&#x4F4D;&#x7684;&#x5927;&#x6570;&#x7EC4;&#xFF0C;&#x901A;&#x8FC7;&#x7269;&#x7406;&#x5730;&#x5740;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x4F4D;&#x7F6E;&#x8FDB;&#x884C;&#x8BFB;&#x5199;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x7269;&#x7406;&#x5730;&#x5740;<strong>&#x5E76;&#x4E0D;&#x4EC5;&#x4EC5;</strong>&#x53EA;&#x80FD;&#x8BBF;&#x95EE;&#x7269;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x7684;&#x5916;&#x8BBE;&#xFF0C;&#x56E0;&#x6B64;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E5F;&#x7B97;&#x662F;&#x4E00;&#x79CD;&#x5916;&#x8BBE;&#x3002;</p>
-<p>&#x8FD9;&#x6837;&#x8BBE;&#x8BA1;&#x662F;&#x56E0;&#x4E3A;&#xFF1A;&#x4E00;&#x5F00;&#x59CB;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x5916;&#x8BBE;&#x4E0E;&#x8BBF;&#x95EE;&#x7269;&#x7406;&#x5185;&#x5B58;&#x8981;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x6307;&#x4EE4;&#xFF0C;&#x4F1A;&#x5E26;&#x6765;&#x5F88;&#x591A;&#x9EBB;&#x70E6;&#xFF0C;&#x4E8E;&#x662F;&#x6211;&#x4EEC;&#x901A;&#x8FC7; MMIO(Memory Mapped I/O) &#x6280;&#x672F;&#x5C06;&#x5916;&#x8BBE;&#x6620;&#x5C04;&#x5230;&#x4E00;&#x6BB5;&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x5916;&#x8BBE;&#x5C31;&#x548C;&#x8BBF;&#x95EE;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E00;&#x6837;&#x5566;&#xFF01;</p>
+<p>&#x8FD9;&#x6837;&#x8BBE;&#x8BA1;&#x662F;&#x56E0;&#x4E3A;&#xFF1A;&#x5982;&#x679C;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x5916;&#x8BBE;&#x8981;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x6307;&#x4EE4;&#xFF08;&#x5982;x86&#x5355;&#x72EC;&#x63D0;&#x4F9B;&#x4E86;<strong>in</strong>, <strong>out</strong> &#x6307;&#x4EE4;&#x6765;&#x8BBF;&#x95EE;&#x4E0D;&#x540C;&#x4E8E;&#x5185;&#x5B58;&#x7684;<strong>IO</strong>&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF09;&#xFF0C;&#x4F1A;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#xFF0C;&#x4E8E;&#x662F;&#x5F88;&#x591A;CPU&#xFF08;&#x5982;RISC-V&#xFF0C;ARM&#xFF0C;MIPS&#x7B49;&#xFF09;&#x901A;&#x8FC7; MMIO(Memory Mapped I/O) &#x6280;&#x672F;&#x5C06;&#x5916;&#x8BBE;&#x6620;&#x5C04;&#x5230;&#x4E00;&#x6BB5;&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x5916;&#x8BBE;&#x5C31;&#x548C;&#x8BBF;&#x95EE;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E00;&#x6837;&#x5566;&#xFF01;</p>
 <p>&#x6211;&#x4EEC;&#x5148;&#x4E0D;&#x7BA1;&#x90A3;&#x4E9B;&#x5916;&#x8BBE;&#xFF0C;&#x6765;&#x770B;&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;</p>
 <h3 id="&#x7269;&#x7406;&#x5185;&#x5B58;&#x63A2;&#x6D4B;">&#x7269;&#x7406;&#x5185;&#x5B58;&#x63A2;&#x6D4B;</h3>
-<p>&#x6211;&#x4EEC;&#x600E;&#x6837;&#x77E5;&#x9053;&#x7269;&#x7406;&#x5185;&#x5B58;&#x6240;&#x5728;&#x7684;&#x90A3;&#x6BB5;&#x7269;&#x7406;&#x5730;&#x5740;&#x5462;&#xFF1F;&#x8FD9;&#x4E2A;&#x5176;&#x5B9E;&#x662F;&#x7531; bootloader &#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x9879;&#x76EE;&#x4E2D;&#x4E5F;&#x5C31;&#x662F; OpenSBI &#x6765;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x5B83;&#x6765;&#x5B8C;&#x6210;&#x5BF9;&#x4E8E;&#x5305;&#x62EC;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5728;&#x5185;&#x7684;&#x5404;&#x5916;&#x8BBE;&#x7684;&#x626B;&#x63CF;&#xFF0C;&#x5C06;&#x626B;&#x63CF;&#x7ED3;&#x679C;&#x4EE5; DTB(Device Tree Blob) &#x7684;&#x683C;&#x5F0F;&#x4FDD;&#x5B58;&#x5728;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x67D0;&#x4E2A;&#x5730;&#x65B9;&#x3002;&#x968F;&#x540E; OpenSBI &#x4F1A;&#x5C06;&#x5176;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728; <code>a1</code> &#x5BC4;&#x5B58;&#x5668;&#x4E2D;&#xFF0C;&#x7ED9;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x3002;</p>
-<p>&#x8FD9;&#x4E2A;&#x626B;&#x63CF;&#x7ED3;&#x679C;&#x63CF;&#x8FF0;&#x4E86;&#x6240;&#x6709;&#x5916;&#x8BBE;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5F53;&#x4E2D;&#x4E5F;&#x5305;&#x62EC;&#x6211;&#x4EEC;&#x7684;&#x5185;&#x5B58;&#x3002;&#x4E0D;&#x8FC7;&#x4E3A;&#x4E86;&#x7B80;&#x5355;&#x8D77;&#x89C1;&#xFF0C;&#x6211;&#x4EEC;&#x5E76;&#x4E0D;&#x6253;&#x7B97;&#x81EA;&#x5DF1;&#x53BB;&#x89E3;&#x6790;&#x8FD9;&#x4E2A;&#x7ED3;&#x679C;&#x3002;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;Qemu &#x89C4;&#x5B9A;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5F00;&#x5934;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;&#x4E3A; <code>0x80000000</code> &#x3002;&#x800C;&#x5728; Qemu &#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>-m</code> &#x6307;&#x5B9A; RAM &#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>2</mn><mn>8</mn><mtext><mi mathvariant="normal">M</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">B</mi></mtext></mrow><annotation encoding="application/x-tex">128\text{MiB}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">2</span><span class="mord mathrm">8</span><span class="mord text textstyle uncramped"><span class="mord mathrm">MiB</span></span></span></span></span> &#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5730;&#x5740;&#x8303;&#x56F4;&#x5C31;&#x662F; <code>[0x80000000,0x88000000)</code> &#x3002;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5C06;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7ED3;&#x675F;&#x5730;&#x5740;&#x786C;&#x7F16;&#x7801;&#x5230;&#x5185;&#x6838;&#x4E2D;&#xFF1A;</p>
+<p>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x600E;&#x6837;&#x77E5;&#x9053;&#x7269;&#x7406;&#x5185;&#x5B58;&#x6240;&#x5728;&#x7684;&#x90A3;&#x6BB5;&#x7269;&#x7406;&#x5730;&#x5740;&#x5462;&#xFF1F;&#x5728;RISC-V&#x4E2D;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E00;&#x822C;&#x662F;&#x7531; bootloader &#xFF0C;&#x5373;OpenSBI &#x6765;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x5B83;&#x6765;&#x5B8C;&#x6210;&#x5BF9;&#x4E8E;&#x5305;&#x62EC;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5728;&#x5185;&#x7684;&#x5404;&#x5916;&#x8BBE;&#x7684;&#x626B;&#x63CF;&#xFF0C;&#x5C06;&#x626B;&#x63CF;&#x7ED3;&#x679C;&#x4EE5; DTB(Device Tree Blob) &#x7684;&#x683C;&#x5F0F;&#x4FDD;&#x5B58;&#x5728;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x67D0;&#x4E2A;&#x5730;&#x65B9;&#x3002;&#x968F;&#x540E; OpenSBI &#x4F1A;&#x5C06;&#x5176;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728; <code>a1</code> &#x5BC4;&#x5B58;&#x5668;&#x4E2D;&#xFF0C;&#x7ED9;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x626B;&#x63CF;&#x7ED3;&#x679C;&#x63CF;&#x8FF0;&#x4E86;&#x6240;&#x6709;&#x5916;&#x8BBE;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5F53;&#x4E2D;&#x4E5F;&#x5305;&#x62EC;Qemu &#x6A21;&#x62DF;&#x7684;RISC-V&#x8BA1;&#x7B97;&#x673A;&#x4E2D;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;</p>
+<blockquote>
+<p><strong>[info] Qemu &#x6A21;&#x62DF;&#x7684;RISC-V virt&#x8BA1;&#x7B97;&#x673A;&#x4E2D;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;</strong></p>
+<p>&#x901A;&#x8FC7;&#x67E5;&#x770B;<a href="https://github.com/qemu/qemu/blob/master/hw/riscv/virt.c" target="_blank">virt.c</a>&#x7684;<strong>virt_memmap[]</strong>&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x53EF;&#x4EE5;&#x4E86;&#x89E3;&#x5230;Qemu&#x6A21;&#x62DF;&#x7684;RISC-V virt&#x8BA1;&#x7B97;&#x673A;&#x7684;&#x8BE6;&#x7EC6;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5E03;&#x5C40;&#x3002;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x6574;&#x4E2A;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E2D;&#x6709;&#x4E0D;&#x5C11;&#x5185;&#x5B58;&#x7A7A;&#x6D1E;&#xFF08;&#x5373;&#x542B;&#x4E49;&#x4E3A;<strong>unmapped</strong>&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF09;&#xFF0C;&#x4E5F;&#x6709;&#x5F88;&#x591A;&#x5916;&#x8BBE;&#x7279;&#x5B9A;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x770B;&#x4E0D;&#x61C2;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#xFF0C;&#x540E;&#x9762;&#x4F1A;&#x6162;&#x6162;&#x6D89;&#x53CA;&#x5230;&#x3002;&#x76EE;&#x524D;&#x53EA;&#x9700;&#x5173;&#x5FC3;&#x6700;&#x540E;&#x4E00;&#x5757;&#x542B;&#x4E49;&#x4E3A;<strong>DRAM</strong>&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;OS&#x5C06;&#x8981;&#x7BA1;&#x7406;&#x7684;128MB&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x8D77;&#x59CB;&#x5730;&#x5740;</th>
+<th style="text-align:left">&#x7EC8;&#x6B62;&#x5730;&#x5740;</th>
+<th style="text-align:left">&#x542B;&#x4E49;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0x0</td>
+<td style="text-align:left">0x100</td>
+<td style="text-align:left">QEMU VIRT_DEBUG</td>
+</tr>
+<tr>
+<td style="text-align:left">0x100</td>
+<td style="text-align:left">0x1000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x1000</td>
+<td style="text-align:left">0x12000</td>
+<td style="text-align:left">QEMU MROM (&#x5305;&#x62EC;hard-coded reset vector; device tree)</td>
+</tr>
+<tr>
+<td style="text-align:left">0x12000</td>
+<td style="text-align:left">0x100000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x100000</td>
+<td style="text-align:left">0x101000</td>
+<td style="text-align:left">QEMU VIRT_TEST</td>
+</tr>
+<tr>
+<td style="text-align:left">0x101000</td>
+<td style="text-align:left">0x2000000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x2000000</td>
+<td style="text-align:left">0x2010000</td>
+<td style="text-align:left">QEMU VIRT_CLINT</td>
+</tr>
+<tr>
+<td style="text-align:left">0x2010000</td>
+<td style="text-align:left">0x3000000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x3000000</td>
+<td style="text-align:left">0x3010000</td>
+<td style="text-align:left">QEMU VIRT_PCIE_PIO</td>
+</tr>
+<tr>
+<td style="text-align:left">0x3010000</td>
+<td style="text-align:left">0xc000000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0xc000000</td>
+<td style="text-align:left">0x10000000</td>
+<td style="text-align:left">QEMU VIRT_PLIC</td>
+</tr>
+<tr>
+<td style="text-align:left">0x10000000</td>
+<td style="text-align:left">0x10000100</td>
+<td style="text-align:left">QEMU VIRT_UART0</td>
+</tr>
+<tr>
+<td style="text-align:left">0x10000100</td>
+<td style="text-align:left">0x10001000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x10001000</td>
+<td style="text-align:left">0x10002000</td>
+<td style="text-align:left">QEMU VIRT_VIRTIO</td>
+</tr>
+<tr>
+<td style="text-align:left">0x10002000</td>
+<td style="text-align:left">0x20000000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x20000000</td>
+<td style="text-align:left">0x24000000</td>
+<td style="text-align:left">QEMU VIRT_FLASH</td>
+</tr>
+<tr>
+<td style="text-align:left">0x24000000</td>
+<td style="text-align:left">0x30000000</td>
+<td style="text-align:left">unmapped</td>
+</tr>
+<tr>
+<td style="text-align:left">0x30000000</td>
+<td style="text-align:left">0x40000000</td>
+<td style="text-align:left">QEMU VIRT_PCIE_ECAM</td>
+</tr>
+<tr>
+<td style="text-align:left">0x40000000</td>
+<td style="text-align:left">0x80000000</td>
+<td style="text-align:left">QEMU VIRT_PCIE_MMIO</td>
+</tr>
+<tr>
+<td style="text-align:left">0x80000000</td>
+<td style="text-align:left">0x88000000</td>
+<td style="text-align:left">DRAM  &#x7F3A;&#x7701;128MB&#xFF0C;&#x5927;&#x5C0F;&#x53EF;&#x914D;&#x7F6E;</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>&#x4E0D;&#x8FC7;&#x4E3A;&#x4E86;&#x7B80;&#x5355;&#x8D77;&#x89C1;&#xFF0C;&#x6211;&#x4EEC;&#x5E76;&#x4E0D;&#x6253;&#x7B97;&#x81EA;&#x5DF1;&#x53BB;&#x89E3;&#x6790;&#x8FD9;&#x4E2A;&#x7ED3;&#x679C;&#x3002;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;Qemu &#x89C4;&#x5B9A;&#x7684;DRAM&#x7269;&#x7406;&#x5185;&#x5B58;&#x7684;&#x8D77;&#x59CB;&#x7269;&#x7406;&#x5730;&#x5740;&#x4E3A; <code>0x80000000</code> &#x3002;&#x800C;&#x5728; Qemu &#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>-m</code> &#x6307;&#x5B9A; RAM &#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>2</mn><mn>8</mn><mtext><mi mathvariant="normal">M</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">B</mi></mtext></mrow><annotation encoding="application/x-tex">128\text{MiB}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">2</span><span class="mord mathrm">8</span><span class="mord text textstyle uncramped"><span class="mord mathrm">MiB</span></span></span></span></span> &#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;DRAM&#x7269;&#x7406;&#x5185;&#x5B58;&#x5730;&#x5740;&#x8303;&#x56F4;&#x5C31;&#x662F; <code>[0x80000000,0x88000000)</code> &#x3002;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5C06;DRAM&#x7269;&#x7406;&#x5185;&#x5B58;&#x7ED3;&#x675F;&#x5730;&#x5740;&#x786C;&#x7F16;&#x7801;&#x5230;&#x5185;&#x6838;&#x4E2D;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/lib.rs</span>
 
 <span class="token keyword">mod</span> consts<span class="token punctuation">;</span>
@@ -1008,7 +1190,7 @@
 
 <span class="token keyword">pub</span> <span class="token keyword">const</span> PHYSICAL_MEMORY_END<span class="token punctuation">:</span> usize <span class="token operator">=</span> <span class="token number">0x88000000</span><span class="token punctuation">;</span>
 </code></pre>
-<p>&#x4F46;&#x662F;&#xFF0C;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x7A7A;&#x95F4;&#x5DF2;&#x7ECF;&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x4E0D;&#x80FD;&#x7528;&#x6765;&#x5B58;&#x522B;&#x7684;&#x4E1C;&#x897F;&#x4E86;&#xFF01;</p>
+<p>&#x4F46;&#x662F;&#xFF0C;&#x6709;&#x4E00;&#x90E8;&#x5206;DRAM&#x7A7A;&#x95F4;&#x5DF2;&#x7ECF;&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x4E0D;&#x80FD;&#x7528;&#x6765;&#x5B58;&#x522B;&#x7684;&#x4E1C;&#x897F;&#x4E86;&#xFF01;</p>
 <ul>
 <li>&#x7269;&#x7406;&#x5730;&#x5740;&#x7A7A;&#x95F4; <code>[0x80000000,0x80200000)</code> &#x88AB; OpenSBI &#x5360;&#x7528;&#xFF1B;</li>
 <li>&#x7269;&#x7406;&#x5730;&#x5740;&#x7A7A;&#x95F4; <code>[0x80200000,KernelEnd)</code> &#x88AB;&#x5185;&#x6838;&#x5404;&#x4EE3;&#x7801;&#x4E0E;&#x6570;&#x636E;&#x6BB5;&#x5360;&#x7528;&#xFF1B;</li>
@@ -1067,7 +1249,7 @@
 <li>&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x7269;&#x7406;&#x9875;&#x53F7;&#xFF0C;&#x56DE;&#x6536;&#x5176;&#x5BF9;&#x5E94;&#x7684;&#x7269;&#x7406;&#x9875;&#x3002;</li>
 <li>&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x9875;&#x53F7;&#x533A;&#x95F4;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#x3002;</li>
 </ol>
-<p>&#x6211;&#x4EEC;&#x8003;&#x8651;&#x7528;&#x4E00;&#x9897;&#x975E;&#x9012;&#x5F52;&#x7EBF;&#x6BB5;&#x6811;&#x6765;&#x7EF4;&#x62A4;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x3002;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x503C;&#x5B58;&#x7684;&#x662F; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">0/1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mord mathrm">/</span><span class="mord mathrm">1</span></span></span></span> &#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x5BF9;&#x5E94;&#x7684;&#x533A;&#x95F4;&#x5185;&#x662F;&#x5426;&#x8FD8;&#x6709;&#x7A7A;&#x95F2;&#x7269;&#x7406;&#x9875;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x8003;&#x8651;&#x7528;&#x4E00;&#x9897;&#x975E;&#x9012;&#x5F52;&#x7EBF;&#x6BB5;&#x6811;&#x6765;&#x7EF4;&#x62A4;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x3002;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x503C;&#x5B58;&#x7684;&#x662F; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mi mathvariant="normal">/</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">0/1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mord mathrm">/</span><span class="mord mathrm">1</span></span></span></span> &#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x5BF9;&#x5E94;&#x7684;&#x533A;&#x95F4;&#x5185;&#x662F;&#x5426;&#x8FD8;&#x6709;&#x7A7A;&#x95F2;&#x7269;&#x7406;&#x9875;&#xFF08;0=&#x7A7A;&#x95F2;&#xFF0C;1=&#x88AB;&#x5360;&#x7528;&#xFF09;&#x3002;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/const.rs</span>
 
 <span class="token keyword">pub</span> <span class="token keyword">const</span> MAX_PHYSICAL_MEMORY<span class="token punctuation">:</span> usize <span class="token operator">=</span> <span class="token number">0x8000000</span><span class="token punctuation">;</span>
@@ -1141,7 +1323,7 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&#x4E8B;&#x5B9E;&#x4E0A;&#x6BCF;&#x6B21;&#x5206;&#x914D;&#x7684;&#x662F;&#x53EF;&#x7528;&#x7684;&#x7269;&#x7406;&#x9875;&#x53F7;&#x6700;&#x5C0F;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x65B9;&#x9762;&#x5C31;&#x4E0D;&#x8D58;&#x8FF0;&#x4E86;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x5C06;&#x8FD9;&#x4E2A;&#x7C7B;&#x5B9E;&#x4F8B;&#x5316;&#x5E76;&#x58F0;&#x660E;&#x4E3A; <code>static</code> &#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x5728;&#x6574;&#x4E2A;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x5F53;&#x4E2D;&#x5747;&#x6709;&#x6548;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x5C06;&#x8FD9;&#x4E2A;&#x7C7B;&#x5B9E;&#x4F8B;&#x5316;&#x5E76;&#x58F0;&#x660E;&#x4E3A; <code>static</code> &#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x5728;&#x6574;&#x4E2A;&#x7A0B;&#x5E8F;    &#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x5F53;&#x4E2D;&#x5747;&#x6709;&#x6548;&#x3002;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// os/Cargo.toml</span>
 
 <span class="token punctuation">[</span>dependencies<span class="token punctuation">]</span>
@@ -1162,7 +1344,7 @@ spin <span class="token operator">=</span> <span class="token string">&quot;0.5.
 <p>&#x6211;&#x4EEC;&#x672C;&#x6765;&#x60F3;&#x628A; <code>SEGMENT_TREE_ALLOCATOR</code> &#x58F0;&#x660E;&#x4E3A; <code>static mut</code> &#x7C7B;&#x578B;&#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x9996;&#x5148;&#x5B83;&#x9700;&#x8981;&#x662F; <code>static</code> &#x7C7B;&#x578B;&#x7684;&#xFF1B;&#x5176;&#x6B21;&#xFF0C;&#x5B83;&#x7684;&#x4E09;&#x4E2A;&#x65B9;&#x6CD5; <code>init, alloc, dealloc</code> &#x90FD;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x81EA;&#x8EAB;&#x3002;</p>
 <p>&#x4F46;&#x662F;&#xFF0C;&#x5BF9;&#x4E8E; <code>static mut</code> &#x7C7B;&#x578B;&#x7684;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;&#x662F; <code>unsafe</code> &#x7684;&#x3002;&#x6211;&#x4EEC;&#x4E4B;&#x540E;&#x4F1A;&#x63D0;&#x5230;<strong>&#x7EBF;&#x7A0B;</strong>&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x5BF9;&#x4E8E; <code>static</code> &#x7C7B;&#x578B;&#x7684;&#x9759;&#x6001;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x80FD;&#x8BBF;&#x95EE;&#x3002;&#x5F53;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6B63;&#x5728;&#x8BBF;&#x95EE;&#x8FD9;&#x6BB5;&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E5F;&#x6765;&#x8BBF;&#x95EE;&#xFF0C;&#x5C31;&#x53EF;&#x80FD;&#x4F1A;&#x4EA7;&#x751F;&#x51B2;&#x7A81;&#xFF0C;&#x5E76;&#x5E26;&#x6765;&#x96BE;&#x4EE5;&#x9884;&#x6D4B;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
 <p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x4F7F;&#x7528; <code>spin::Mutex<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span></code> &#x7ED9;&#x8FD9;&#x6BB5;&#x6570;&#x636E;&#x52A0;&#x4E00;&#x628A;&#x9501;&#xFF0C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BD5;&#x56FE;&#x901A;&#x8FC7; <code>.lock()</code> &#x6253;&#x5F00;&#x9501;&#x6765;&#x83B7;&#x53D6;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7684;&#x53EF;&#x53D8;&#x5F15;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x94A5;&#x5319;&#x88AB;&#x522B;&#x7684;&#x7EBF;&#x7A0B;&#x6240;&#x5360;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x5361;&#x5728;&#x8FD9;&#x91CC;&#xFF1B;&#x76F4;&#x5230;&#x90A3;&#x4E2A;&#x5360;&#x7528;&#x4E86;&#x94A5;&#x5319;&#x7684;&#x7EBF;&#x7A0B;&#x5BF9;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7684;&#x8BBF;&#x95EE;&#x7ED3;&#x675F;&#xFF0C;&#x9501;&#x88AB;&#x91CA;&#x653E;&#xFF0C;&#x5C06;&#x94A5;&#x5319;&#x4EA4;&#x8FD8;&#x51FA;&#x6765;&#xFF0C;&#x88AB;&#x5361;&#x4F4F;&#x7684;&#x90A3;&#x4E2A;&#x7EBF;&#x7A0B;&#x62FF;&#x5230;&#x4E86;&#x94A5;&#x5319;&#xFF0C;&#x5C31;&#x53EF;&#x6253;&#x5F00;&#x9501;&#x83B7;&#x53D6;&#x5185;&#x90E8;&#x5F15;&#x7528;&#xFF0C;&#x8BBF;&#x95EE;&#x5185;&#x90E8;&#x6570;&#x636E;&#x3002;</p>
-<p>&#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x7684;&#x662F; <code>spin::Mutex<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span></code> &#xFF0C; &#x6211;&#x4EEC;&#x5728; <code>Cargo.toml</code> &#x4E2D;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#x3002;&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;&#x5B83;&#x4E5F;&#x65E0;&#x9700;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x652F;&#x6301;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x653E;&#x5FC3;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x7684;&#x662F; <code>spin::Mutex<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span></code> &#xFF0C; &#x6211;&#x4EEC;&#x5728; <code>Cargo.toml</code> &#x4E2D;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#x3002;&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;&#x5B83;&#x4E5F;&#x65E0;&#x9700;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x652F;&#x6301;&#xFF08;&#x5373;&#x652F;&#x6301;no_std&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x653E;&#x5FC3;&#x4F7F;&#x7528;&#x3002;</p>
 <p>&#x6211;&#x4EEC;&#x5728; <code>src/memory/mod.rs</code> &#x91CC;&#x9762;&#x518D;&#x5BF9;&#x8FD9;&#x4E2A;&#x7C7B;&#x5305;&#x88C5;&#x4E00;&#x4E0B;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/memory/mod.rs</span>
 
@@ -1255,7 +1437,7 @@ alloc <span class="token function">Some</span><span class="token punctuation">(<
 </code></pre>
 </blockquote>
 <p>&#x6211;&#x4EEC;&#x56DE;&#x6536;&#x7684;&#x9875;&#x9762;&#x63A5;&#x4E0B;&#x6765;&#x9A6C;&#x4E0A;&#x5C31;&#x53C8;&#x88AB;&#x5206;&#x914D;&#x51FA;&#x53BB;&#x4E86;&#x3002;</p>
-<p>&#x5982;&#x679C;&#x7ED3;&#x679C;&#x6709;&#x95EE;&#x9898;&#x7684;&#x8BDD;&#xFF0C;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/695d8a2c" target="_blank">&#x8FD9;&#x91CC;</a>&#x80FD;&#x627E;&#x5230;&#x73B0;&#x6709;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7ED3;&#x679C;&#x6709;&#x95EE;&#x9898;&#x7684;&#x8BDD;&#xFF0C;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/ch4-pa1" target="_blank">&#x8FD9;&#x91CC;</a>&#x80FD;&#x627E;&#x5230;&#x73B0;&#x6709;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
 <p>&#x4E0D;&#x8FC7;&#xFF0C;&#x8FD9;&#x79CD;&#x7269;&#x7406;&#x5185;&#x5B58;&#x5206;&#x914D;&#x7ED9;&#x4EBA;&#x4E00;&#x79CD;&#x8FC7;&#x5BB6;&#x5BB6;&#x7684;&#x611F;&#x89C9;&#x3002;&#x65E0;&#x8BBA;&#x8868;&#x9762;&#x4E0A;&#x5206;&#x914D;&#x3001;&#x56DE;&#x6536;&#x505A;&#x5F97;&#x600E;&#x6837;&#x4E95;&#x4E95;&#x6709;&#x6761;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x90FD;&#x5E76;&#x6CA1;&#x6709;&#x5BF9;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4EA7;&#x751F;&#x4EFB;&#x4F55;&#x5F71;&#x54CD;&#xFF01;&#x4E0D;&#x8981;&#x7740;&#x6025;&#xFF0C;&#x6211;&#x4EEC;&#x4E4B;&#x540E;&#x4F1A;&#x4F7F;&#x7528;&#x5B83;&#x4EEC;&#x7684;&#x3002;</p>
 <p><div id="page-footer" class="localized-footer"><hr><p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
@@ -1316,12 +1498,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"[物理内存探测与管理]","level":"1.6.1","depth":2,"next":{"title":"[动态内存分配]","level":"1.6.2","depth":2,"path":"chapter4/part2.md","ref":"chapter4/part2.md","articles":[]},"previous":{"title":"第四章：内存管理","level":"1.6","depth":1,"path":"chapter4/introduction.md","ref":"chapter4/introduction.md","articles":[{"title":"[物理内存探测与管理]","level":"1.6.1","depth":2,"path":"chapter4/part1.md","ref":"chapter4/part1.md","articles":[]},{"title":"[动态内存分配]","level":"1.6.2","depth":2,"path":"chapter4/part2.md","ref":"chapter4/part2.md","articles":[]},{"title":"总结与展望","level":"1.6.3","depth":2,"path":"chapter4/part3.md","ref":"chapter4/part3.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter4/part1.md","mtime":"2019-12-10T15:47:36.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"[物理内存探测与管理]","level":"1.6.1","depth":2,"next":{"title":"[动态内存分配]","level":"1.6.2","depth":2,"path":"chapter4/part2.md","ref":"chapter4/part2.md","articles":[]},"previous":{"title":"第四章：内存管理","level":"1.6","depth":1,"path":"chapter4/introduction.md","ref":"chapter4/introduction.md","articles":[{"title":"[物理内存探测与管理]","level":"1.6.1","depth":2,"path":"chapter4/part1.md","ref":"chapter4/part1.md","articles":[]},{"title":"[动态内存分配]","level":"1.6.2","depth":2,"path":"chapter4/part2.md","ref":"chapter4/part2.md","articles":[]},{"title":"总结与展望","level":"1.6.3","depth":2,"path":"chapter4/part3.md","ref":"chapter4/part3.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter4/part1.md","mtime":"2020-01-28T08:19:28.032Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1335,6 +1518,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1361,6 +1548,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

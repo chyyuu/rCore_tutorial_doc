@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -62,6 +67,9 @@
         
     
 
+
+    
+
         
     
     
@@ -72,6 +80,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
+    
+    <link rel="next" href="../chapter10/introduction.html" />
     
     
     <link rel="prev" href="part3.html" />
@@ -793,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -815,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -828,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -841,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -854,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -931,6 +954,51 @@
             
                     
                     总结与展望
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
             
                 </a>
             
@@ -1035,10 +1103,14 @@ gitalk.render("gitalk-container");
 
             
                 
-                <a href="part3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: [实现终端]">
+                <a href="part3.html" class="navigation navigation-prev " aria-label="Previous page: [实现终端]">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="../chapter10/introduction.html" class="navigation navigation-next " aria-label="Next page: 第十章：同步互斥">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -1047,12 +1119,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"总结与展望","level":"1.11.4","depth":2,"previous":{"title":"[实现终端]","level":"1.11.3","depth":2,"path":"chapter9/part3.md","ref":"chapter9/part3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter9/part4.md","mtime":"2019-12-10T15:47:36.287Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"总结与展望","level":"1.11.4","depth":2,"next":{"title":"第十章：同步互斥","level":"1.12","depth":1,"path":"chapter10/introduction.md","ref":"chapter10/introduction.md","articles":[]},"previous":{"title":"[实现终端]","level":"1.11.3","depth":2,"path":"chapter9/part3.md","ref":"chapter9/part3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter9/part4.md","mtime":"2020-01-22T03:39:47.890Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1066,6 +1139,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1092,6 +1169,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -992,7 +1058,7 @@
                                 
                                 <h2 id="&#x5B9E;&#x73B0;&#x7EC8;&#x7AEF;">&#x5B9E;&#x73B0;&#x7EC8;&#x7AEF;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/f408f075" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch9-pa3" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
 <p>&#x6211;&#x4EEC;&#x7684;&#x7EC8;&#x7AEF;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF1A;&#x5176;&#x529F;&#x80FD;&#x4E3A;&#x4F60;&#x8F93;&#x5165;&#x60F3;&#x8981;&#x6267;&#x884C;&#x7684;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x5982; <code>rust/hello_world</code> &#xFF0C;&#x968F;&#x540E;&#x6309;&#x4E0B;&#x56DE;&#x8F66;&#xFF0C;&#x5185;&#x6838;&#x5C31;&#x4F1A;&#x5E2E;&#x4F60;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x7A0B;&#x5E8F;&#x3002;</p>
 <p>&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF1A;</p>
@@ -1207,7 +1273,7 @@
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x867D;&#x7136;&#x8FD8;&#x662F;&#x5C06; <code>rust/user_shell</code> &#x786C;&#x7F16;&#x7801;&#x5230;&#x5185;&#x6838;&#x4E2D;&#xFF0C;&#x4F46;&#x662F;&#x597D;&#x6B79;&#x5B83;&#x53EF;&#x4EE5;&#x4EA4;&#x4E92;&#x5F0F;&#x8FD0;&#x884C;&#x5176;&#x4ED6;&#x7A0B;&#x5E8F;&#x4E86;&#xFF01;</p>
 <p>&#x8BD5;&#x4E00;&#x8BD5;&#x8FD0;&#x884C; <code>rust/hello_world</code> &#xFF0C;&#x5B83;&#x5DE5;&#x4F5C;&#x7684;&#x5F88;&#x597D;&#xFF1B;<code>rust/notebook</code> &#x4E5F;&#x4E0D;&#x8D56;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x5B9E;&#x73B0; <code>Ctrl+c</code> &#x7684;&#x529F;&#x80FD;&#xFF0C;&#x56E0;&#x6B64;&#x5C31;&#x65E0;&#x6CD5;&#x4ECE;&#x8BB0;&#x4E8B;&#x672C;&#x4E2D;&#x9000;&#x51FA;&#x4E86;&#x3002;&#x968F;&#x4FBF;&#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x7EC8;&#x7AEF;&#x4E5F;&#x4E0D;&#x4F1A;&#x5D29;&#x6E83;&#xFF0C;&#x800C;&#x662F;&#x4F1A;&#x63D0;&#x793A;&#x7A0B;&#x5E8F;&#x4E0D;&#x5B58;&#x5728;&#xFF01;</p>
-<p>&#x6240;&#x6709;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/f408f075" target="_blank">&#x8FD9;&#x91CC;</a>&#x627E;&#x5230;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/ch9-pa3" target="_blank">&#x8FD9;&#x91CC;</a>&#x627E;&#x5230;&#x3002;</p>
 <p><div id="page-footer" class="localized-footer"><hr><p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <div id="gitalk-container"></div>
@@ -1267,12 +1333,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"[实现终端]","level":"1.11.3","depth":2,"next":{"title":"总结与展望","level":"1.11.4","depth":2,"path":"chapter9/part4.md","ref":"chapter9/part4.md","articles":[]},"previous":{"title":"[实现记事本]","level":"1.11.2","depth":2,"path":"chapter9/part2.md","ref":"chapter9/part2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter9/part3.md","mtime":"2019-12-10T15:47:36.287Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"[实现终端]","level":"1.11.3","depth":2,"next":{"title":"总结与展望","level":"1.11.4","depth":2,"path":"chapter9/part4.md","ref":"chapter9/part4.md","articles":[]},"previous":{"title":"[实现记事本]","level":"1.11.2","depth":2,"path":"chapter9/part2.md","ref":"chapter9/part2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter9/part3.md","mtime":"2020-01-27T16:13:33.259Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1286,6 +1353,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1312,6 +1383,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="part1_1.html">
+            
+                <a href="part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="part2.html">
             
                 <a href="part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.10.3" data-path="part3.html">
+        <li class="chapter active" data-level="1.10.4" data-path="part3.html">
             
                 <a href="part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="part4.html">
             
                 <a href="part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="part5.html">
             
                 <a href="part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -992,85 +1058,25 @@
                                 
                                 <h2 id="&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;">&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/86abde4d" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch8-pa4" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
-<h3 id="&#x5185;&#x6838;&#x94FE;&#x63A5;">&#x5185;&#x6838;&#x94FE;&#x63A5;</h3>
-<p>&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x5C06;&#x6700;&#x7EC8;&#x5F97;&#x5230;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x76F4;&#x63A5;&#x94FE;&#x63A5;&#x5230;&#x5185;&#x6838;&#x4E2D;&#x5373;&#x53EF;&#x3002;</p>
-<p>&#x8FD9;&#x91CC;&#x7684;&#x5B9E;&#x73B0;&#x6709;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x5199;&#x4E00;&#x4E2A;<a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html" target="_blank">&#x7F16;&#x8BD1;&#x811A;&#x672C;</a> <code>build.rs</code>&#x3002;&#x6CE8;&#x610F;&#x662F;&#x76F4;&#x63A5;&#x653E;&#x5728;&#x9879;&#x76EE;&#x6587;&#x4EF6;&#x5939; <code>os</code> &#x4E2D;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6E90;&#x7801;&#x6587;&#x4EF6;&#x5939; <code>src</code>&#xFF1A;</p>
-<pre class="language-"><code class="lang-rust"><span class="token comment">// build.rs</span>
-
-<span class="token keyword">use</span> std<span class="token punctuation">::</span>fs<span class="token punctuation">::</span>File<span class="token punctuation">;</span>
-<span class="token keyword">use</span> std<span class="token punctuation">::</span>io<span class="token punctuation">::</span><span class="token punctuation">{</span>Result<span class="token punctuation">,</span> Write<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;cargo:rerun-if-env-changed=USER_IMG&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token function">Ok</span><span class="token punctuation">(</span>user_img<span class="token punctuation">)</span> <span class="token operator">=</span> std<span class="token punctuation">::</span>env<span class="token punctuation">::</span><span class="token function">var</span><span class="token punctuation">(</span><span class="token string">&quot;USER_IMG&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;cargo:rerun-if-changed={}&quot;</span><span class="token punctuation">,</span> user_img<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">gen_link_user_asm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">/// Generate assembly file for linking user image</span>
-<span class="token keyword">fn</span> <span class="token function">gen_link_user_asm</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> Result<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> <span class="token keyword">mut</span> f <span class="token operator">=</span> File<span class="token punctuation">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">&quot;src/link_user.S&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">let</span> user_img <span class="token operator">=</span> std<span class="token punctuation">::</span>env<span class="token punctuation">::</span><span class="token function">var</span><span class="token punctuation">(</span><span class="token string">&quot;USER_IMG&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token function">writeln!</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> <span class="token string">&quot;# generated by build.rs - do not edit&quot;</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
-    <span class="token function">writeln!</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> r#&quot;
-    <span class="token punctuation">.</span>section <span class="token punctuation">.</span>data
-    <span class="token punctuation">.</span>global _user_img_start
-    <span class="token punctuation">.</span>global _user_img_end
-_user_img_start<span class="token punctuation">:</span>
-    <span class="token punctuation">.</span>incbin <span class="token string">&quot;{}&quot;</span>
-_user_img_end<span class="token punctuation">:</span>
-&quot;#<span class="token punctuation">,</span> user_img<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
-    <span class="token function">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x7136;&#x540E;&#x5728; <code>init.rs</code> &#x4E2D;&#x52A0;&#x5165;&#xFF1A;</p>
-<pre class="language-"><code class="lang-rust"><span class="token comment">// init.rs</span>
-
-<span class="token function">global_asm!</span><span class="token punctuation">(</span><span class="token function">include_str!</span><span class="token punctuation">(</span><span class="token string">&quot;link_user.S&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>&#x8FD9;&#x6BB5;&#x7F16;&#x8BD1;&#x811A;&#x672C;&#x4F1A;&#x5728;&#x6BCF;&#x6B21;&#x7F16;&#x8BD1;&#x7684;<strong>&#x6700;&#x5F00;&#x59CB;</strong>&#x8FD0;&#x884C;&#x3002;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x751F;&#x6210;&#x4E00;&#x6BB5;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#xFF0C;&#x5C06;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x539F;&#x5C01;&#x4E0D;&#x52A8;&#x5730;&#x94FE;&#x63A5;&#x5230;&#x5185;&#x6838;&#x7684; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">.</mi><mi mathvariant="normal">d</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi></mtext></mrow><annotation encoding="application/x-tex">\text{.data}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord text textstyle uncramped"><span class="mord mathrm">.data</span></span></span></span></span> &#x6BB5;&#x4E2D;&#x3002;&#x8FD9;&#x6BB5;&#x6C47;&#x7F16;&#x88AB;&#x751F;&#x6210;&#x5230; <code>src/link_user.S</code> &#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x6211;&#x4EEC;&#x5728; <code>init.rs</code> &#x91CC;&#x628A;&#x5B83;&#x5BFC;&#x5165;&#x8FDB;&#x6765;&#x3002;&#x6B64;&#x540E;&#x53EF;&#x4EE5;&#x5728;&#x5176;&#x5B83;&#x5730;&#x65B9;&#x901A;&#x8FC7; <code>_user_img_start</code> &#x548C; <code>_user_img_end</code> &#x8FD9;&#x4E24;&#x4E2A;&#x7B26;&#x53F7;&#x5F97;&#x77E5;&#x5B83;&#x6240;&#x5728;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x7528;&#x4E00;&#x4E2A;&#x73AF;&#x5883;&#x53D8;&#x91CF; <code>USER_IMG</code> &#x8BB0;&#x5F55;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x955C;&#x50CF;&#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x7F16;&#x8BD1;&#x811A;&#x672C;&#x5728;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x4F1A;&#x5C06;&#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x586B;&#x5165;&#x751F;&#x6210;&#x7684;&#x6C47;&#x7F16;&#x4E2D;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x5728;&#x7F16;&#x8BD1;&#x4E4B;&#x524D;&#x5229;&#x7528; <code>export</code> &#x4FEE;&#x6539;&#x73AF;&#x5883;&#x53D8;&#x91CF; <code>USER_IMG</code> &#x4E3A;&#x6211;&#x4EEC;&#x6700;&#x7EC8;&#x5F97;&#x5230;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;&#x5373;&#x53EF;&#x3002;</p>
-<p>&#x6700;&#x540E;&#x8BA9;&#x6211;&#x4EEC;&#x5173;&#x6CE8;&#x4E00;&#x5F00;&#x59CB;&#x7684;&#x4E24;&#x6761;&#x5947;&#x602A;&#x8BED;&#x53E5;&#xFF1A;</p>
-<pre class="language-"><code class="lang-rust"><span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;cargo:rerun-if-env-changed=USER_IMG&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;cargo:rerun-if-changed={}&quot;</span><span class="token punctuation">,</span> user_img<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>&#x8FD9;&#x662F;&#x7F16;&#x8BD1;&#x811A;&#x672C;&#x53D1;&#x9001;&#x7ED9;&#x6784;&#x5EFA;&#x5DE5;&#x5177; cargo &#x7684;&#x7279;&#x6B8A;&#x6307;&#x4EE4;&#xFF0C;&#x542B;&#x4E49;&#x662F;&#xFF1A;&#x5F53;&#x68C0;&#x6D4B;&#x5230;&#x73AF;&#x5883;&#x53D8;&#x91CF; <code>USER_IMG</code> &#x6216;&#x8005;&#x5B83;&#x6240;&#x6307;&#x5411;&#x7684;&#x6587;&#x4EF6;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;&#x5C31;&#x5F3A;&#x5236;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x3002;&#x5E76;&#x4E14;&#x6BCF;&#x6B21;&#x7F16;&#x8BD1;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>link_user.S</code> &#x6587;&#x4EF6;&#x3002;</p>
-<p>&#x8FD9;&#x6CE2;&#x64CD;&#x4F5C;&#x8981;&#x89E3;&#x51B3;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF1A;&#x7531;&#x4E8E;&#x7F16;&#x8BD1;&#x5668;&#x5177;&#x6709;<strong>&#x81EA;&#x52A8;&#x589E;&#x91CF;&#x6784;&#x5EFA;</strong>&#x7684;&#x7279;&#x6027;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5F53;&#x7528;&#x6237;&#x955C;&#x50CF;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x65E0;&#x6CD5;&#x81EA;&#x52A8;&#x611F;&#x77E5;&#x5230;&#xFF0C;&#x6700;&#x540E;&#x94FE;&#x63A5;&#x7684;&#x8FD8;&#x662F;&#x4EE5;&#x524D;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4F7F;&#x5F97;&#x6211;&#x4EEC;&#x4E0D;&#x5F97;&#x4E0D;&#x624B;&#x52A8; <code>cargo clean</code> &#x6E05;&#x7406;&#x5E72;&#x51C0;&#x4E2D;&#x95F4;&#x4EA7;&#x7269;&#x540E;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x3002;</p>
-<p>&#x73B0;&#x5728;&#xFF0C;&#x6211;&#x4EEC;&#x6BCF;&#x6B21;&#x66F4;&#x65B0;&#x5B8C;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x955C;&#x50CF;&#x540E;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x653E;&#x5FC3;&#x5730;&#x76F4;&#x63A5; <code>make run</code> &#x4E86;&#xFF01;</p>
-<h3 id="elf-&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x4E0E;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x521B;&#x5EFA;">elf &#x6587;&#x4EF6;&#x89E3;&#x6790;&#x4E0E;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x521B;&#x5EFA;</h3>
-<p>&#x4E3A;&#x4E86;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#xFF0C;&#x5185;&#x6838;&#x9996;&#x5148;&#x8981;&#x7ED9;&#x5B83;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x5373;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4F9B;&#x5B83;&#x4F7F;&#x7528;&#x3002;&#x7531;&#x4E8E;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x8981;&#x901A;&#x8FC7;&#x4E2D;&#x65AD;&#x8BBF;&#x95EE;&#x5185;&#x6838;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x6240;&#x5728;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5FC5;&#x987B;&#x4E5F;&#x5305;&#x542B;&#x5185;&#x6838;&#x7684;&#x5404;&#x4EE3;&#x7801;&#x6BB5;&#x548C;&#x6570;&#x636E;&#x6BB5;&#x3002;</p>
-<p>elf &#x6587;&#x4EF6;&#x4E0E;&#x53EA;&#x542B;&#x6709;&#x4EE3;&#x7801;&#x548C;&#x6570;&#x636E;&#x7684;&#x7EAF;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#x4E0D;&#x540C;&#xFF0C;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x53BB;&#x89E3;&#x6790;&#x5B83;&#x7684;&#x6587;&#x4EF6;&#x7ED3;&#x6784;&#x6765;&#x83B7;&#x5F97;&#x5404;&#x6BB5;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x6240;&#x5E78;&#x7684;&#x662F;&#xFF0C; rust &#x5DF2;&#x7ECF;&#x6709; crate &#x5E2E;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E00;&#x70B9;&#x3002;</p>
-<pre class="language-"><code class="lang-rust"><span class="token comment">// Cargo.toml</span>
-
-<span class="token punctuation">[</span>dependencies<span class="token punctuation">]</span>
-xmas<span class="token operator">-</span>elf <span class="token operator">=</span> <span class="token string">&quot;0.6&quot;</span>
-
-<span class="token comment">// src/process/structs.rs</span>
-
-<span class="token keyword">use</span> xmas_elf<span class="token punctuation">::</span><span class="token punctuation">{</span>
-    header<span class="token punctuation">,</span>
-    program<span class="token punctuation">::</span><span class="token punctuation">{</span> Flags<span class="token punctuation">,</span> SegmentData<span class="token punctuation">,</span> Type <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    ElfFile<span class="token punctuation">,</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>memory<span class="token punctuation">::</span>memory_set<span class="token punctuation">::</span><span class="token punctuation">{</span>
-    MemorySet<span class="token punctuation">,</span>
-    handler<span class="token punctuation">::</span>ByFrame<span class="token punctuation">,</span>
-    attr<span class="token punctuation">::</span>MemoryAttr<span class="token punctuation">,</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">use</span> core<span class="token punctuation">::</span>str<span class="token punctuation">;</span>
-
+<h3 id="elf&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x4E0E;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x521B;&#x5EFA;">ELF&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x4E0E;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x521B;&#x5EFA;</h3>
+<p>&#x4E3A;&#x4E86;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#xFF0C;&#x5185;&#x6838;&#x9996;&#x5148;&#x8981;&#x7ED9;&#x5B83;&#x5206;&#x914D;&#x7528;&#x6237;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x5373;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4F9B;&#x5B83;&#x4F7F;&#x7528;&#x3002;&#x7531;&#x4E8E;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x8981;&#x901A;&#x8FC7;&#x4E2D;&#x65AD;&#x8BBF;&#x95EE;&#x5185;&#x6838;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x6240;&#x5728;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5FC5;&#x987B;&#x4E5F;&#x5305;&#x542B;&#x5185;&#x6838;&#x7684;&#x5404;&#x4EE3;&#x7801;&#x6BB5;&#x548C;&#x6570;&#x636E;&#x6BB5;&#x3002;</p>
+<p>ELF&#x6587;&#x4EF6;&#x4E0E;&#x53EA;&#x542B;&#x6709;&#x4EE3;&#x7801;&#x548C;&#x6570;&#x636E;&#x7684;&#x7EAF;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#x4E0D;&#x540C;&#xFF0C;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x53BB;&#x89E3;&#x6790;&#x5B83;&#x7684;&#x6587;&#x4EF6;&#x7ED3;&#x6784;&#x6765;&#x83B7;&#x5F97;&#x5404;&#x6BB5;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x6240;&#x5E78;&#x7684;&#x662F;&#xFF0C; rust &#x5DF2;&#x7ECF;&#x6709; <code>crate xmas-elf</code>&#x5E2E;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E00;&#x70B9;&#x3002;</p>
+<blockquote>
+<p><strong>[info]ELF&#x6267;&#x884C;&#x6587;&#x4EF6;&#x683C;&#x5F0F;</strong></p>
+<p>ELF(Executable and Linking Format)&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x662F;Linux&#x7CFB;&#x7EDF;&#x4E0B;&#x7684;&#x4E00;&#x79CD;&#x5E38;&#x7528;&#x76EE;&#x6807;&#x6587;&#x4EF6;(object file)&#x683C;&#x5F0F;&#xFF0C;&#x6709;&#x4E09;&#x79CD;&#x4E3B;&#x8981;&#x7C7B;&#x578B;&#xFF0C;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x5173;&#x6CE8;&#x7684;&#x662F;&#x7528;&#x4E8E;&#x6267;&#x884C;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;(Executable File)&#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x7A0B;&#x5E8F;&#x7684;&#x53EF;&#x6267;&#x884C;&#x4EE3;&#x7801;/&#x6570;&#x636E;&#x5185;&#x5BB9;&#xFF0C;&#x52A0;&#x8F7D;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x5E03;&#x5C40;&#x63CF;&#x8FF0;&#x7B49;&#x3002; &#x8FD9;&#x4E5F;&#x662F;&#x672C;&#x5B9E;&#x9A8C;&#x7684;OS&#x548C;&#x5E94;&#x7528;&#x7684;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x3002;&#x53EF;&#x53C2;&#x8003;<a href="https://wiki.osdev.org/ELF" target="_blank">ELF&#x63CF;&#x8FF0;</a>&#x8FDB;&#x4E00;&#x6B65;&#x4E86;&#x89E3;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x3002;</p>
+</blockquote>
+<p>&#x5BF9;ELF&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x4E0E;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x521B;&#x5EFA;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x9700;&#x8981;&#x89E3;&#x6790;&#x51FA;ELF&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x7684;&#x6BB5;&#xFF08;&#x5982;code&#x6BB5;&#x3001;data&#x6BB5;&#x3001;BSS&#x6BB5;&#x7B49;&#xFF09;&#xFF0C;&#x5E76;&#x628A;&#x6BB5;&#x7684;&#x5185;&#x5BB9;&#x62F7;&#x8D1D;&#x5230;&#x6BB5;&#x8BBE;&#x5B9A;&#x7684;&#x5730;&#x5740;&#x4E2D;&#xFF0C;&#x8BBE;&#x7F6E;&#x597D;&#x76F8;&#x5173;&#x5C5E;&#x6027;&#x3002;&#x8FD9;&#x9700;&#x8981;&#x5BF9;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x76F8;&#x5173;&#x7684;<a href="../chapter5/part5.html"><code>MemorySet</code> &#x548C; <code>MemoryArea</code></a> &#x7684;&#x76F8;&#x5173;&#x5B9E;&#x73B0;&#x8FDB;&#x884C;&#x6269;&#x5C55;&#x3002;&#x5177;&#x4F53;&#x4FEE;&#x6539;&#x5982;&#x4E0B;&#xFF1A;</p>
+<h3 id="&#x89E3;&#x6790;elf&#x6587;&#x4EF6;">&#x89E3;&#x6790;ELF&#x6587;&#x4EF6;</h3>
+<pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/structs.rs</span>
 <span class="token keyword">trait</span> ElfExt <span class="token punctuation">{</span>
     <span class="token keyword">fn</span> <span class="token function">make_memory_set</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> MemorySet<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
-<span class="token comment">// &#x7ED9;&#x4E00;&#x4E2A;&#x7528;&#x6237; elf &#x53EF;&#x6267;&#x884C;&#x7A0B;&#x5E8F;&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</span>
+<span class="token comment">// &#x7ED9;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x7684;ELF&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</span>
 <span class="token keyword">impl</span> ElfExt <span class="token keyword">for</span> ElfFile<span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">&apos;_</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
     <span class="token keyword">fn</span> <span class="token function">make_memory_set</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> MemorySet <span class="token punctuation">{</span>
-        <span class="token comment">// MemorySet::new() &#x5DF2;&#x7ECF;&#x6620;&#x5C04;&#x4E86;&#x5185;&#x6838;&#x5404;&#x6570;&#x636E;&#x3001;&#x4EE3;&#x7801;&#x6BB5;&#xFF0C;&#x4EE5;&#x53CA;&#x7269;&#x7406;&#x5185;&#x5B58;&#x6BB5;</span>
+        <span class="token comment">// MemorySet::new()&#x7684;&#x5B9E;&#x73B0;&#x4E2D;&#x5DF2;&#x7ECF;&#x6620;&#x5C04;&#x4E86;&#x5185;&#x6838;&#x5404;&#x6570;&#x636E;&#x3001;&#x4EE3;&#x7801;&#x6BB5;&#xFF0C;&#x4EE5;&#x53CA;&#x7269;&#x7406;&#x5185;&#x5B58;&#x6BB5;</span>
         <span class="token comment">// &#x4E8E;&#x662F;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x63A5;&#x4E0B;&#x6765;&#x6620;&#x5C04;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x5404;&#x6BB5;&#x5373;&#x53EF;</span>
         <span class="token keyword">let</span> <span class="token keyword">mut</span> memory_set <span class="token operator">=</span> MemorySet<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">for</span> ph <span class="token keyword">in</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">program_iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1084,13 +1090,11 @@ xmas<span class="token operator">-</span>elf <span class="token operator">=</spa
                 SegmentData<span class="token punctuation">::</span><span class="token function">Undefined</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> data<span class="token punctuation">,</span>
                 _ <span class="token operator">=&gt;</span> <span class="token function">unreachable!</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
             <span class="token comment">// &#x8FD9;&#x91CC;&#x5728;&#x63D2;&#x5165;&#x4E00;&#x4E2A; MemoryArea &#x65F6;&#x8FD8;&#x9700;&#x8981;&#x590D;&#x5236;&#x6570;&#x636E;</span>
             <span class="token comment">// &#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5C06; MemorySet &#x7684;&#x63A5;&#x53E3;&#x7565;&#x4F5C;&#x4FEE;&#x6539;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E3A;&#x6570;&#x636E;&#x6E90;</span>
             memory_set<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>
-                vaddr<span class="token punctuation">,</span>
-                vaddr <span class="token operator">+</span> mem_size<span class="token punctuation">,</span>
-                ph<span class="token punctuation">.</span><span class="token function">flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_attr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                vaddr<span class="token punctuation">,</span>   vaddr <span class="token operator">+</span> mem_size<span class="token punctuation">,</span>
+                ph<span class="token punctuation">.</span><span class="token function">flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_attr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">//&#x5C06;elf&#x6BB5;&#x7684;&#x6807;&#x5FD7;&#x8F6C;&#x5316;&#x4E3A;&#x6211;&#x4EEC;&#x719F;&#x6089;&#x7684; MemoryAttr</span>
                 ByFrame<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
                 <span class="token function">Some</span><span class="token punctuation">(</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span><span class="token function">as_ptr</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> usize<span class="token punctuation">,</span> data<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1098,30 +1102,15 @@ xmas<span class="token operator">-</span>elf <span class="token operator">=</spa
         memory_set
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-
-<span class="token comment">// &#x5C06; elf &#x6BB5;&#x7684;&#x6807;&#x5FD7;&#x8F6C;&#x5316;&#x4E3A;&#x6211;&#x4EEC;&#x719F;&#x6089;&#x7684; MemoryAttr</span>
-<span class="token keyword">trait</span> ToMemoryAttr <span class="token punctuation">{</span>
-    <span class="token keyword">fn</span> <span class="token function">to_attr</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> MemoryAttr<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">impl</span> ToMemoryAttr <span class="token keyword">for</span> Flags <span class="token punctuation">{</span>
-    <span class="token keyword">fn</span> <span class="token function">to_attr</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> MemoryAttr <span class="token punctuation">{</span>
-        <span class="token comment">// &#x7531;&#x4E8E;&#x662F;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#xFF0C;&#x5404;&#x6BB5;&#x5747;&#x9996;&#x5148;&#x8BBE;&#x7F6E;&#x4E3A;&#x7528;&#x6237;&#x6001;</span>
-        <span class="token keyword">let</span> <span class="token keyword">mut</span> flags <span class="token operator">=</span> MemoryAttr<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set_user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">is_execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            flags <span class="token operator">=</span> flags<span class="token punctuation">.</span><span class="token function">set_execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        flags
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<span class="token punctuation">...</span><span class="token punctuation">...</span>
 </code></pre>
-<p>&#x6211;&#x4EEC;&#x5BF9; <code>MemorySet</code> &#x548C; <code>MemoryArea</code> &#x7684;&#x63A5;&#x53E3;&#x7565;&#x4F5C;&#x4FEE;&#x6539;&#xFF1A;</p>
+<h3 id="&#x3000;&#x5EFA;&#x7ACB;&#x5BF9;&#x5E94;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;">&#x3000;&#x5EFA;&#x7ACB;&#x5BF9;&#x5E94;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</h3>
+<p>&#x6211;&#x4EEC;&#x5BF9; <a href="../chapter5/part5.html"><code>MemorySet</code> &#x548C; <code>MemoryArea</code></a> &#x7684;&#x63A5;&#x53E3;&#x7565;&#x4F5C;&#x4FEE;&#x6539;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/memory/memory_set/mod.rs</span>
-
 <span class="token keyword">impl</span> MemorySet <span class="token punctuation">{</span>
     <span class="token punctuation">...</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> start<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> end<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> attr<span class="token punctuation">:</span> MemoryAttr<span class="token punctuation">,</span> handler<span class="token punctuation">:</span> <span class="token keyword">impl</span> MemoryHandler<span class="token punctuation">,</span> data<span class="token punctuation">:</span> Option<span class="token operator">&lt;</span><span class="token punctuation">(</span>usize<span class="token punctuation">,</span> usize<span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">assert!</span><span class="token punctuation">(</span>start <span class="token operator">&lt;=</span> end<span class="token punctuation">,</span> <span class="token string">&quot;invalid memory area!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">assert!</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">test_free_area</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span> end<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;memory area overlap!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">...</span>
         <span class="token keyword">let</span> area <span class="token operator">=</span> MemoryArea<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span> end<span class="token punctuation">,</span> Box<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span><span class="token punctuation">,</span> attr<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment">// &#x9996;&#x5148;&#x8FDB;&#x884C;&#x6620;&#x5C04;</span>
         area<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">.</span>page_table<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1131,15 +1120,10 @@ xmas<span class="token operator">-</span>elf <span class="token operator">=</spa
             area<span class="token punctuation">.</span><span class="token function">page_copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">.</span>page_table<span class="token punctuation">,</span> src<span class="token punctuation">,</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token keyword">self</span><span class="token punctuation">.</span>areas<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>area<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
     <span class="token punctuation">}</span>
-    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">token</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> usize <span class="token punctuation">{</span>
-        <span class="token keyword">self</span><span class="token punctuation">.</span>page_table<span class="token punctuation">.</span><span class="token function">token</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    <span class="token punctuation">...</span><span class="token punctuation">...</span>
 
 <span class="token comment">// src/memory/memory_set/area.rs</span>
-
 <span class="token keyword">impl</span> MemoryArea <span class="token punctuation">{</span>
     <span class="token punctuation">...</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">page_copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> pt<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> PageTableImpl<span class="token punctuation">,</span> src<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> length<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
@@ -1147,23 +1131,12 @@ xmas<span class="token operator">-</span>elf <span class="token operator">=</spa
         <span class="token keyword">let</span> <span class="token keyword">mut</span> s <span class="token operator">=</span> src<span class="token punctuation">;</span>
         <span class="token keyword">for</span> page <span class="token keyword">in</span> PageRange<span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">.</span>start<span class="token punctuation">,</span> <span class="token keyword">self</span><span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment">// &#x4EA4;&#x7ED9; MemoryHandler &#x9010;&#x9875;&#x8FDB;&#x884C;&#x590D;&#x5236;</span>
-            <span class="token keyword">self</span><span class="token punctuation">.</span>handler<span class="token punctuation">.</span><span class="token function">page_copy</span><span class="token punctuation">(</span>
-                pt<span class="token punctuation">,</span>
-                page<span class="token punctuation">,</span>
-                s<span class="token punctuation">,</span>
-                <span class="token keyword">if</span> l <span class="token operator">&lt;</span> PAGE_SIZE <span class="token punctuation">{</span> l <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> PAGE_SIZE <span class="token punctuation">}</span><span class="token punctuation">,</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">self</span><span class="token punctuation">.</span>handler<span class="token punctuation">.</span><span class="token function">page_copy</span><span class="token punctuation">(</span>pt<span class="token punctuation">,</span> page<span class="token punctuation">,</span> s<span class="token punctuation">,</span> l<span class="token punctuation">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             s <span class="token operator">+=</span> PAGE_SIZE<span class="token punctuation">;</span>
             <span class="token keyword">if</span> l <span class="token operator">&gt;=</span> PAGE_SIZE <span class="token punctuation">{</span> l <span class="token operator">-=</span> PAGE_SIZE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
+     <span class="token punctuation">...</span><span class="token punctuation">...</span>
 <span class="token comment">// src/memory/memory_set/handler.rs</span>
-
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>memory<span class="token punctuation">::</span>access_pa_via_va<span class="token punctuation">;</span>
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>consts<span class="token punctuation">::</span>PAGE_SIZE<span class="token punctuation">;</span>
-
 <span class="token keyword">pub</span> <span class="token keyword">trait</span> MemoryHandler<span class="token punctuation">:</span> Debug <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span> <span class="token punctuation">{</span>
     <span class="token punctuation">...</span>
     <span class="token keyword">fn</span> <span class="token function">page_copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> pt<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> PageTableImpl<span class="token punctuation">,</span> va<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> src<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> length<span class="token punctuation">:</span> usize<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1172,23 +1145,11 @@ xmas<span class="token operator">-</span>elf <span class="token operator">=</spa
 <span class="token keyword">impl</span> MemoryHandler <span class="token keyword">for</span> Linear <span class="token punctuation">{</span>
     <span class="token punctuation">...</span>
     <span class="token keyword">fn</span> <span class="token function">page_copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> pt<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> PageTableImpl<span class="token punctuation">,</span> va<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> src<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> length<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> pa <span class="token operator">=</span> pt<span class="token punctuation">.</span><span class="token function">get_entry</span><span class="token punctuation">(</span>va<span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">&quot;get pa error!&quot;</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token number">0</span>
-            <span class="token punctuation">.</span><span class="token function">addr</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">as_usize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">assert!</span><span class="token punctuation">(</span>va <span class="token operator">==</span> <span class="token function">access_pa_via_va</span><span class="token punctuation">(</span>pa<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">assert!</span><span class="token punctuation">(</span>va <span class="token operator">==</span> pa <span class="token operator">+</span> <span class="token keyword">self</span><span class="token punctuation">.</span>offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> pa <span class="token operator">=</span> pt<span class="token punctuation">.</span><span class="token function">get_entry</span><span class="token punctuation">(</span>va<span class="token punctuation">)</span><span class="token punctuation">...</span><span class="token punctuation">;</span>
         <span class="token keyword">unsafe</span> <span class="token punctuation">{</span>
-            <span class="token keyword">let</span> dst <span class="token operator">=</span> core<span class="token punctuation">::</span>slice<span class="token punctuation">::</span><span class="token function">from_raw_parts_mut</span><span class="token punctuation">(</span>
-                va <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">mut</span> u8<span class="token punctuation">,</span>
-                PAGE_SIZE<span class="token punctuation">,</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> dst <span class="token operator">=</span> core<span class="token punctuation">::</span>slice<span class="token punctuation">::</span><span class="token function">from_raw_parts_mut</span><span class="token punctuation">(</span>va<span class="token punctuation">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token keyword">if</span> length <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
-                <span class="token keyword">let</span> src <span class="token operator">=</span> core<span class="token punctuation">::</span>slice<span class="token punctuation">::</span><span class="token function">from_raw_parts</span><span class="token punctuation">(</span>
-                    src <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> u8<span class="token punctuation">,</span>
-                    PAGE_SIZE<span class="token punctuation">,</span>
-                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">let</span> src <span class="token operator">=</span> core<span class="token punctuation">::</span>slice<span class="token punctuation">::</span><span class="token function">from_raw_parts</span><span class="token punctuation">(</span>src<span class="token punctuation">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token number">0</span><span class="token punctuation">..</span>length <span class="token punctuation">{</span> dst<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> src<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
             <span class="token punctuation">}</span>
             <span class="token keyword">for</span> i <span class="token keyword">in</span> length<span class="token punctuation">..</span>PAGE_SIZE <span class="token punctuation">{</span> dst<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
@@ -1199,31 +1160,12 @@ xmas<span class="token operator">-</span>elf <span class="token operator">=</spa
 <span class="token keyword">impl</span> MemoryHandler <span class="token keyword">for</span> ByFrame <span class="token punctuation">{</span>
     <span class="token punctuation">...</span>
     <span class="token keyword">fn</span> <span class="token function">page_copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> pt<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> PageTableImpl<span class="token punctuation">,</span> va<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> src<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> length<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> pa <span class="token operator">=</span> pt<span class="token punctuation">.</span><span class="token function">get_entry</span><span class="token punctuation">(</span>va<span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">&quot;get pa error!&quot;</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token number">0</span>
-            <span class="token punctuation">.</span><span class="token function">addr</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">as_usize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">unsafe</span> <span class="token punctuation">{</span>
-            <span class="token keyword">let</span> dst <span class="token operator">=</span> core<span class="token punctuation">::</span>slice<span class="token punctuation">::</span><span class="token function">from_raw_parts_mut</span><span class="token punctuation">(</span>
-                <span class="token function">access_pa_via_va</span><span class="token punctuation">(</span>pa<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">mut</span> u8<span class="token punctuation">,</span>
-                PAGE_SIZE<span class="token punctuation">,</span>
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> length <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
-                <span class="token keyword">let</span> src <span class="token operator">=</span> core<span class="token punctuation">::</span>slice<span class="token punctuation">::</span><span class="token function">from_raw_parts</span><span class="token punctuation">(</span>
-                    src <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> u8<span class="token punctuation">,</span>
-                    PAGE_SIZE<span class="token punctuation">,</span>
-                <span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token number">0</span><span class="token punctuation">..</span>length <span class="token punctuation">{</span> dst<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> src<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">for</span> i <span class="token keyword">in</span> length<span class="token punctuation">..</span>PAGE_SIZE <span class="token punctuation">{</span> dst<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    <span class="token comment">//&#x7C7B;&#x4F3C;fn page_copy() in mpl MemoryHandler for Linear </span>
+    <span class="token punctuation">...</span><span class="token punctuation">...</span>
 <span class="token punctuation">}</span>
 
 <span class="token comment">// src/memory/paging.rs</span>
 <span class="token comment">// &#x8FD9;&#x91CC;&#x6709;&#x4E24;&#x5904;&#x8981;&#x6539;&#x6210; pub &#xFF0C;&#x5176;&#x4ED6;&#x4E0D;&#x5FC5;&#x505A;&#x6539;&#x52A8;</span>
-
 <span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token function">PageEntry</span><span class="token punctuation">(</span><span class="token keyword">pub</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&apos;static</span> <span class="token keyword">mut</span> PageTableEntry<span class="token punctuation">,</span> Page<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">impl</span> PageTableImpl <span class="token punctuation">{</span>
@@ -1292,7 +1234,7 @@ gitalk.render("gitalk-container");
                 </a>
                 
                 
-                <a href="part4.html" class="navigation navigation-next " aria-label="Next page: [创建用户线程]">
+                <a href="part4.html" class="navigation navigation-next " aria-label="Next page: [创建进程]">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1303,12 +1245,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"创建虚拟内存空间","level":"1.10.3","depth":2,"next":{"title":"[创建用户线程]","level":"1.10.4","depth":2,"path":"chapter8/part4.md","ref":"chapter8/part4.md","articles":[]},"previous":{"title":"在内核中实现系统调用","level":"1.10.2","depth":2,"path":"chapter8/part2.md","ref":"chapter8/part2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter8/part3.md","mtime":"2019-12-10T15:47:36.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"创建虚拟内存空间","level":"1.10.4","depth":2,"next":{"title":"[创建进程]","level":"1.10.5","depth":2,"path":"chapter8/part4.md","ref":"chapter8/part4.md","articles":[]},"previous":{"title":"在内核中实现系统调用","level":"1.10.3","depth":2,"path":"chapter8/part2.md","ref":"chapter8/part2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter8/part3.md","mtime":"2020-01-30T04:23:38.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1322,6 +1265,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1348,6 +1295,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

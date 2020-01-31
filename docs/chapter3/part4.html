@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -992,8 +1058,9 @@
                                 
                                 <h2 id="&#x5B9E;&#x73B0;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x4FDD;&#x5B58;&#x4E0E;&#x6062;&#x590D;">&#x5B9E;&#x73B0;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x4FDD;&#x5B58;&#x4E0E;&#x6062;&#x590D;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/5d09d5eb" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch3-pa4" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
+<p>OS&#x5728;&#x6B63;&#x786E;&#x5B8C;&#x6210;&#x4E2D;&#x65AD;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x8BBE;&#x7F6E;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x8D77;&#x59CB;&#x5730;&#x5740;&#xFF0C;&#x5E76;&#x4F7F;&#x80FD;&#x4E2D;&#x65AD;&#xFF09;&#x540E;&#xFF0C;&#x8FD8;&#x9700;&#x4E3A;&#x88AB;&#x4E2D;&#x65AD;&#x7684;&#x7A0B;&#x5E8F;&#x4FDD;&#x5B58;&#x548C;&#x6062;&#x590D;&#x5F53;&#x65F6;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#xFF08;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x4E00;&#x5806;&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x503C;&#xFF0C;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x5728;[part3&#x4E2D;&#x63CF;&#x8FF0;&#x7684;<strong>&#x4E2D;&#x65AD;&#x5E27;(TrapFrame)</strong>&#x7ED3;&#x6784;&#x4F53;][part3.md]&#x4E2D;&#x6709;&#x8BE6;&#x7EC6;&#x5B9A;&#x4E49;&#xFF09;</p>
 <pre class="language-"><code class="lang-riscv"><span class="token comment"># src/trap/trap.asm
 </span>
     <span class="token section-directives tag">.section</span><span class="token section-directives tag">.text</span>
@@ -1008,16 +1075,16 @@
     <span class="token last-literals operator">RESTORE_ALL</span>
     <span class="token privilege-instructions keyword">sret</span>
 </code></pre>
-<p>&#x6211;&#x4EEC;&#x9996;&#x5148;&#x5B9A;&#x4E49; <code>__alltraps</code> &#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x6240;&#x6709;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x5165;&#x53E3;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x901A;&#x8FC7; <code>SAVE_ALL</code> &#x6765;&#x4FDD;&#x5B58;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#xFF0C;&#x968F;&#x540E;&#x5C06;&#x5F53;&#x524D;&#x6808;&#x9876;&#x5730;&#x5740; <code>sp</code> &#x7684;&#x503C;&#x7ED9;&#x5230;&#x5BC4;&#x5B58;&#x5668; <code>a0</code> &#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x5728;risc-v calling convention &#x4E2D;&#xFF0C;&#x89C4;&#x5B9A; <code>a0</code> &#x4FDD;&#x5B58;&#x51FD;&#x6570;&#x8F93;&#x5165;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x4E8E;&#x662F;&#x6211;&#x4EEC;&#x76F8;&#x5F53;&#x4E8E;&#x5C06;&#x6808;&#x9876;&#x5730;&#x5740;&#x4F20;&#x7ED9;&#x51FD;&#x6570; <code>rust_trap</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
-<p>&#x968F;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7; <code>jal</code> &#x8C03;&#x7528; <code>rust_trap</code> &#x51FD;&#x6570;&#x5E76;&#x5728;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x8DF3;&#x8F6C;&#x5230;&#x8C03;&#x7528;&#x8BED;&#x53E5;&#x7684;&#x4E0B;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#x8C03;&#x7528;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x8FDB;&#x5165; <code>__trapret</code> &#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x901A;&#x8FC7; <code>RESTORE_ALL</code> &#x6062;&#x590D;&#x4E2D;&#x65AD;&#x4E4B;&#x524D;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#xFF0C;&#x5E76;&#x6700;&#x7EC8;&#x901A;&#x8FC7;&#x4E00;&#x6761; <code>sret</code> &#x6307;&#x4EE4;&#x8DF3;&#x8F6C;&#x5230; <code>sepc</code>&#xFF0C;&#x56DE;&#x5230;&#x89E6;&#x53D1;&#x4E2D;&#x65AD;&#x7684;&#x90A3;&#x6761;&#x6307;&#x4EE4;&#x6240;&#x5728;&#x5730;&#x5740;&#x3002;&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x89E6;&#x53D1;&#x4E2D;&#x65AD;&#x7684;&#x90A3;&#x6761;&#x6307;&#x4EE4;&#x53C8;&#x88AB;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x3002;</p>
-<p>&#x6CE8;&#x610F;&#xFF0C;&#x7531;&#x4E8E;&#x8FD9;&#x90E8;&#x5206;&#x7528;&#x5230;&#x4E86; <code>SAVE_ALL</code> &#x548C; <code>RESTORE_ALL</code> &#x4E24;&#x4E2A;&#x5B8F;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x90E8;&#x5206;&#x5FC5;&#x987B;&#x5199;&#x5728;&#x6700;&#x4E0B;&#x9762;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x51E0;&#x4E2A;&#x5B8F;&#xFF1A;</p>
+<p>&#x6211;&#x4EEC;&#x9996;&#x5148;&#x5B9A;&#x4E49; <code>__alltraps</code> &#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x6240;&#x6709;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x5165;&#x53E3;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x901A;&#x8FC7; <code>SAVE_ALL</code> &#xFF08;&#x6C47;&#x7F16;&#x5B8F;&#xFF09;&#x6765;&#x4FDD;&#x5B58;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#xFF0C;&#x968F;&#x540E;&#x5C06;&#x5F53;&#x524D;&#x6808;&#x9876;&#x5730;&#x5740; <code>sp</code> &#x7684;&#x503C;&#x7ED9;&#x5230;&#x5BC4;&#x5B58;&#x5668; <code>a0</code> &#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x5728;risc-v calling convention &#x4E2D;&#xFF0C;&#x89C4;&#x5B9A; <code>a0</code> &#x4FDD;&#x5B58;&#x51FD;&#x6570;&#x8F93;&#x5165;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x4E8E;&#x662F;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x5C06;&#x6808;&#x9876;&#x5730;&#x5740;&#x4F20;&#x7ED9;&#x51FD;&#x6570; <code>rust_trap</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x968F;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7; <code>jal</code> &#x8C03;&#x7528; <code>rust_trap</code> &#x51FD;&#x6570;&#x5E76;&#x5728;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x8DF3;&#x8F6C;&#x5230;&#x8C03;&#x7528;&#x8BED;&#x53E5;&#x7684;&#x4E0B;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#x8C03;&#x7528;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x8FDB;&#x5165; <code>__trapret</code> &#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x901A;&#x8FC7; <code>RESTORE_ALL</code> &#xFF08;&#x6C47;&#x7F16;&#x5B8F;&#xFF09;&#x6062;&#x590D;&#x4E2D;&#x65AD;&#x4E4B;&#x524D;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#xFF0C;&#x5E76;&#x6700;&#x7EC8;&#x901A;&#x8FC7;&#x4E00;&#x6761; <code>sret</code> &#x6307;&#x4EE4;&#x8DF3;&#x8F6C;&#x5230; <code>sepc</code>&#x6307;&#x5411;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x5373;&#x56DE;&#x5230;&#x89E6;&#x53D1;&#x4E2D;&#x65AD;&#x7684;&#x90A3;&#x6761;&#x6307;&#x4EE4;&#x6240;&#x5728;&#x5730;&#x5740;&#x3002;&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x89E6;&#x53D1;&#x4E2D;&#x65AD;&#x7684;&#x90A3;&#x6761;&#x6307;&#x4EE4;&#x53C8;&#x88AB;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x7531;&#x4E8E;&#x8FD9;&#x90E8;&#x5206;&#x7528;&#x5230;&#x4E86; <code>SAVE_ALL</code> &#x548C; <code>RESTORE_ALL</code> &#x4E24;&#x4E2A;&#x6C47;&#x7F16;&#x5B8F;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x90E8;&#x5206;&#x5FC5;&#x987B;&#x5199;&#x5728;&#x6700;&#x4E0B;&#x9762;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x51E0;&#x4E2A;&#x5E38;&#x91CF;&#x548C;&#x5B8F;&#xFF1A;</p>
 <pre class="language-"><code class="lang-riscv"><span class="token comment"># src/trap/trap.asm
 </span>
-<span class="token comment"># &#x8868;&#x793A;&#x6BCF;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;&#x5360;&#x7684;&#x5B57;&#x8282;&#x6570;&#xFF0C;&#x7531;&#x4E8E;&#x662F;64&#x4F4D;&#xFF0C;&#x90FD;&#x662F;8&#x5B57;&#x8282;
+<span class="token comment"># &#x5E38;&#x91CF;&#xFF1A;&#x8868;&#x793A;&#x6BCF;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;&#x5360;&#x7684;&#x5B57;&#x8282;&#x6570;&#xFF0C;&#x7531;&#x4E8E;&#x662F;64&#x4F4D;&#xFF0C;&#x90FD;&#x662F;8&#x5B57;&#x8282;
 </span><span class="token symbol-directives tag">.equ</span> <span class="token last-literals operator">XLENB</span> <span class="token number">8</span>
 
-<span class="token comment"># &#x5C06;&#x5730;&#x5740; sp+8&#xD7;a2 &#x5904;&#x7684;&#x503C; load &#x5230;&#x5BC4;&#x5B58;&#x5668; a1 &#x5185;
+<span class="token comment"># &#x5C06;&#x5730;&#x5740; sp+8*a2 &#x5904;&#x7684;&#x503C; load &#x5230;&#x5BC4;&#x5B58;&#x5668; a1 &#x5185;
 </span><span class="token miscellaneous-directives tag">.macro</span> <span class="token last-literals operator">LOAD</span> <span class="token general-registers class-name">a1</span>, <span class="token general-registers class-name">a2</span>
     <span class="token rv32/64i-instructions keyword">ld</span> \<span class="token general-registers class-name">a1</span>, \<span class="token general-registers class-name">a2</span>*<span class="token last-literals operator">XLENB</span>(<span class="token general-registers class-name">sp</span>)
 <span class="token miscellaneous-directives tag">.endm</span>
@@ -1027,6 +1094,7 @@
     <span class="token rv32/64i-instructions keyword">sd</span> \<span class="token general-registers class-name">a1</span>, \<span class="token general-registers class-name">a2</span>*<span class="token last-literals operator">XLENB</span>(<span class="token general-registers class-name">sp</span>)
 <span class="token miscellaneous-directives tag">.endm</span>
 </code></pre>
+<h3 id="&#x4FDD;&#x5B58;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;">&#x4FDD;&#x5B58;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;</h3>
 <p><code>SAVE_ALL</code> &#x7684;&#x539F;&#x7406;&#x662F;&#xFF1A;&#x5C06;&#x4E00;&#x6574;&#x4E2A; <code>TrapFrame</code> &#x4FDD;&#x5B58;&#x5728;<strong>&#x5185;&#x6838;&#x6808;</strong>&#x4E0A;&#x3002;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x5C31;&#x5904;&#x5728;&#x5185;&#x6838;&#x6001;(S &#x6001;)&#xFF0C;&#x56E0;&#x6B64;&#x73B0;&#x5728;&#x7684;&#x6808;&#x9876;&#x5730;&#x5740; <code>sp</code> &#x5C31;&#x6307;&#x5411;&#x5185;&#x6838;&#x6808;&#x5730;&#x5740;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x4E4B;&#x540E;&#x6211;&#x4EEC;&#x8FD8;&#x8981;&#x652F;&#x6301;&#x8FD0;&#x884C;<strong>&#x7528;&#x6237;&#x6001;&#x7A0B;&#x5E8F;</strong>&#xFF0C;&#x987E;&#x540D;&#x601D;&#x4E49;&#xFF0C;&#x8981;&#x5728;&#x7528;&#x6237;&#x6001;(U &#x6001;)&#x4E0A;&#x8FD0;&#x884C;&#xFF0C;&#x5728;&#x4E2D;&#x65AD;&#x65F6;&#x6808;&#x9876;&#x5730;&#x5740; <code>sp</code> &#x5C06;&#x6307;&#x5411;&#x7528;&#x6237;&#x6808;&#x9876;&#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x4EEC;&#x8981;&#x4ECE;&#x7528;&#x6237;&#x6808;&#x5207;&#x6362;&#x5230;&#x5185;&#x6838;&#x6808;&#x3002;</p>
 <pre class="language-"><code class="lang-riscv"><span class="token comment"># src/trap/trap.asm
 </span>
@@ -1038,15 +1106,16 @@
 </span>    <span class="token comment"># &#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5C06;&#x53F3;&#x4FA7;&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x503C;&#x5199;&#x5165;&#x4E2D;&#x95F4; csr
 </span>    <span class="token comment"># &#x5E76;&#x5C06;&#x4E2D;&#x95F4; csr &#x7684;&#x503C;&#x5199;&#x5165;&#x5DE6;&#x4FA7;&#x5BC4;&#x5B58;&#x5668;
 </span>    <span class="token csr-instructions keyword">csrrw</span> <span class="token general-registers class-name">sp</span>, <span class="token s-mode-csrs class-name">sscratch</span>, <span class="token general-registers class-name">sp</span>
+
     <span class="token comment"># &#x5982;&#x679C; sp=0 &#xFF0C;&#x8BF4;&#x660E;&#x4EA4;&#x6362;&#x524D; sscratch=0
-</span>    <span class="token comment"># &#x8BF4;&#x660E;&#x4ECE;&#x5185;&#x6838;&#x6001;&#x8FDB;&#x5165;&#x4E2D;&#x65AD;&#xFF0C;&#x4E0D;&#x7528;&#x5207;&#x6362;&#x6808;
-</span>    <span class="token comment"># &#x56E0;&#x6B64;&#x4E0D;&#x8DF3;&#x8F6C;&#xFF0C;&#x7EE7;&#x7EED;&#x6267;&#x884C; csrr &#x518D;&#x5C06; sscratch &#x7684;&#x503C;&#x8BFB;&#x56DE; sp
-</span>    <span class="token comment"># &#x6B64;&#x65F6; sp,sscratch &#x5747;&#x4FDD;&#x5B58;&#x5185;&#x6838;&#x6808;
+</span>    <span class="token comment">#   &#x5219;&#x8BF4;&#x660E;&#x4ECE;&#x5185;&#x6838;&#x6001;&#x8FDB;&#x5165;&#x4E2D;&#x65AD;&#xFF0C;&#x4E0D;&#x7528;&#x5207;&#x6362;&#x6808;
+</span>    <span class="token comment">#   &#x56E0;&#x6B64;&#x4E0D;&#x8DF3;&#x8F6C;&#xFF0C;&#x7EE7;&#x7EED;&#x6267;&#x884C; csrr &#x518D;&#x5C06; sscratch &#x7684;&#x503C;&#x8BFB;&#x56DE; sp
+</span>    <span class="token comment">#   &#x6B64;&#x65F6; sp,sscratch &#x5747;&#x4FDD;&#x5B58;&#x5185;&#x6838;&#x6808;
 </span>
-    <span class="token comment"># &#x5426;&#x5219; sp!=0&#xFF0C;&#x8BF4;&#x660E;&#x4ECE;&#x7528;&#x6237;&#x6001;&#x8FDB;&#x5165;&#x4E2D;&#x65AD;&#xFF0C;&#x8981;&#x5207;&#x6362;&#x6808;
-</span>    <span class="token comment"># &#x7531;&#x4E8E; sscratch &#x89C4;&#x5B9A;&#xFF0C;&#x4E8C;&#x8005;&#x4EA4;&#x6362;&#x540E;
-</span>    <span class="token comment"># &#x6B64;&#x65F6; sp &#x4E3A;&#x5185;&#x6838;&#x6808;&#xFF0C; sscratch &#x4E3A;&#x7528;&#x6237;&#x6808;
-</span>    <span class="token comment"># &#x7565;&#x8FC7; csrr &#x6307;&#x4EE4;
+    <span class="token comment">#   &#x5426;&#x5219; &#x8BF4;&#x660E;sp!=0&#xFF0C;&#x8BF4;&#x660E;&#x4ECE;&#x7528;&#x6237;&#x6001;&#x8FDB;&#x5165;&#x4E2D;&#x65AD;&#xFF0C;&#x8981;&#x5207;&#x6362;&#x6808;
+</span>    <span class="token comment">#   &#x7531;&#x4E8E; sscratch &#x89C4;&#x5B9A;&#xFF0C;&#x4E8C;&#x8005;&#x4EA4;&#x6362;&#x540E;
+</span>    <span class="token comment">#   &#x6B64;&#x65F6; sp &#x4E3A;&#x5185;&#x6838;&#x6808;&#xFF0C; sscratch &#x4E3A;&#x7528;&#x6237;&#x6808;
+</span>    <span class="token comment">#   &#x7565;&#x8FC7; csrr &#x6307;&#x4EE4;
 </span>
     <span class="token comment"># &#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x63A5;&#x4E0B;&#x6765;&#x90FD;&#x662F;&#x5728;&#x5185;&#x6838;&#x6808;&#x4E0A;&#x4FDD;&#x5B58;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;
 </span>    <span class="token pseudo-instructions important">bnez</span> <span class="token general-registers class-name">sp</span>, <span class="token last-literals operator">trap_from_user</span>
@@ -1085,6 +1154,7 @@
 <span class="token miscellaneous-directives tag">.endm</span>
 </code></pre>
 <p>&#x5728; <code>SAVE_ALL</code> &#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4E00;&#x6574;&#x4E2A; <code>TrapFrame</code> &#x5B58;&#x5728;&#x4E86;&#x5185;&#x6838;&#x6808;&#x4E0A;&#xFF0C;&#x4E14;&#x5728;&#x5730;&#x5740;&#x533A;&#x95F4;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">p</mi></mtext><mo separator="true">,</mo><mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">p</mi></mtext><mo>+</mo><mn>3</mn><mn>6</mn><mo>&#xD7;</mo><mn>8</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">[\text{sp},\text{sp}+36\times8)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord text textstyle uncramped"><span class="mord mathrm">sp</span></span><span class="mpunct">,</span><span class="mord text textstyle uncramped"><span class="mord mathrm">sp</span></span><span class="mbin">+</span><span class="mord mathrm">3</span><span class="mord mathrm">6</span><span class="mbin">&#xD7;</span><span class="mord mathrm">8</span><span class="mclose">)</span></span></span></span>&#x4E0A;&#x6309;&#x7167;&#x987A;&#x5E8F;&#x5B58;&#x653E;&#x4E86; <code>TrapFrame</code> &#x7684;&#x5404;&#x4E2A;&#x5B57;&#x6BB5;&#x3002;&#x8FD9;&#x6837;&#xFF0C;<code>rust_trap</code> &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6808;&#x9876;&#x5730;&#x5740;&#x6B63;&#x786E;&#x8BBF;&#x95EE; <code>TrapFrame</code> &#x4E86;&#x3002;</p>
+<h3 id="&#x6062;&#x590D;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;">&#x6062;&#x590D;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;</h3>
 <p>&#x800C; <code>RESTORE_ALL</code> &#x6B63;&#x597D;&#x662F;&#x4E00;&#x4E2A;&#x53CD;&#x8FC7;&#x6765;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;</p>
 <pre class="language-"><code class="lang-riscv"><span class="token comment"># src/trap/trap.asm
 </span>
@@ -1149,6 +1219,8 @@
         <span class="token comment">// &#x4ECD;&#x4F7F;&#x7528; Direct &#x6A21;&#x5F0F;</span>
         <span class="token comment">// &#x5C06;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x603B;&#x5165;&#x53E3;&#x8BBE;&#x7F6E;&#x4E3A; __alltraps</span>
         stvec<span class="token punctuation">::</span><span class="token function">write</span><span class="token punctuation">(</span>__alltraps <span class="token keyword">as</span> usize<span class="token punctuation">,</span> stvec<span class="token punctuation">::</span>TrapMode<span class="token punctuation">::</span>Direct<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x8BBE;&#x7F6E; sstatus &#x7684; SIE &#x4F4D;</span>
+        sstatus<span class="token punctuation">::</span><span class="token function">set_sie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">&quot;++++ setup interrupt! ++++&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -1208,7 +1280,7 @@ rust_trap!
 panicked at &apos;end of rust_main&apos;, src/init.rs:9:5
 </code></pre></blockquote>
 <p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x6211;&#x4EEC;&#x786E;&#x5B9E;&#x624B;&#x52A8;&#x89E6;&#x53D1;&#x4E2D;&#x65AD;&#xFF0C;&#x8C03;&#x7528;&#x4E86;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x4E0A;&#x4E0B;&#x6587;&#x4FDD;&#x5B58;&#x4E0E;&#x6062;&#x590D;&#x673A;&#x5236;&#x4FDD;&#x62A4;&#x4E86;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x4E0D;&#x53D7;&#x5230;&#x7834;&#x574F;&#xFF0C;&#x6B63;&#x786E;&#x5728; <code>ebreak</code> &#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x8FD4;&#x56DE;&#x4E4B;&#x540E; <code>panic</code>&#x3002;</p>
-<p>&#x8FC4;&#x4ECA;&#x4E3A;&#x6B62;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/5d09d5eb" target="_blank">&#x8FD9;&#x91CC;</a>&#x627E;&#x5230;&#x3002;&#x5982;&#x679C;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x7684;&#x8BDD;&#x5C31;&#x6765;&#x68C0;&#x67E5;&#x4E00;&#x4E0B;&#x5427;&#x3002;</p>
+<p>&#x8FC4;&#x4ECA;&#x4E3A;&#x6B62;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x5728;<a href="https://github.com/rcore-os/rCore_tutorial/tree/ch3-pa4" target="_blank">&#x8FD9;&#x91CC;</a>&#x627E;&#x5230;&#x3002;&#x5982;&#x679C;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x7684;&#x8BDD;&#x5C31;&#x6765;&#x68C0;&#x67E5;&#x4E00;&#x4E0B;&#x5427;&#x3002;</p>
 <p><div id="page-footer" class="localized-footer"><hr><p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <div id="gitalk-container"></div>
@@ -1268,12 +1340,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"[实现上下文环境保存与恢复]","level":"1.5.4","depth":2,"next":{"title":"[时钟中断]","level":"1.5.5","depth":2,"path":"chapter3/part5.md","ref":"chapter3/part5.md","articles":[]},"previous":{"title":"程序运行上下文环境","level":"1.5.3","depth":2,"path":"chapter3/part3.md","ref":"chapter3/part3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter3/part4.md","mtime":"2019-12-10T15:47:36.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"[实现上下文环境保存与恢复]","level":"1.5.4","depth":2,"next":{"title":"[时钟中断]","level":"1.5.5","depth":2,"path":"chapter3/part5.md","ref":"chapter3/part5.md","articles":[]},"previous":{"title":"程序运行上下文环境","level":"1.5.3","depth":2,"path":"chapter3/part3.md","ref":"chapter3/part3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter3/part4.md","mtime":"2020-01-27T16:07:04.346Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1287,6 +1360,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1313,6 +1390,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

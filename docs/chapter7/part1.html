@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -992,20 +1058,16 @@
                                 
                                 <h2 id="&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x5668;">&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x5668;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/75d4ed97" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch7-pa4" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
 <h3 id="&#x7EBF;&#x7A0B;&#x72B6;&#x6001;">&#x7EBF;&#x7A0B;&#x72B6;&#x6001;</h3>
 <p>&#x4ECE;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x89D2;&#x5EA6;&#x6765;&#x770B;&#xFF0C;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x72EC;&#x4E00;&#x65E0;&#x4E8C;&#x7684; Tid &#x6765;&#x533A;&#x5206;&#x5B83;&#x548C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x3002;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// in process/mod.rs</span>
-
 <span class="token keyword">pub</span> <span class="token keyword">type</span> Tid <span class="token operator">=</span> usize<span class="token punctuation">;</span>
 <span class="token keyword">pub</span> <span class="token keyword">type</span> ExitCode <span class="token operator">=</span> usize<span class="token punctuation">;</span>
 </code></pre>
 <p>&#x540C;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x6709;&#x4E0B;&#x9762;&#x51E0;&#x79CD;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/struct.rs</span>
-
-<span class="token keyword">use</span> <span class="token keyword">super</span><span class="token punctuation">::</span><span class="token punctuation">{</span> Tid<span class="token punctuation">,</span> ExitCode <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
 <span class="token attribute attr-name">#[derive(Clone)]</span>
 <span class="token keyword">pub</span> <span class="token keyword">enum</span> Status <span class="token punctuation">{</span>
     <span class="token comment">// &#x5C31;&#x7EEA;&#xFF1A;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#x8981;&#x7B49;&#x5230; CPU &#x7684;&#x8D44;&#x6E90;&#x5206;&#x914D;&#x7ED9;&#x5B83;</span>
@@ -1023,14 +1085,7 @@
 &#x67E5;&#x770B;&#x7684;&#x95F4;&#x9694;&#x4E0D;&#x80FD;&#x592A;&#x957F;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#x7B49;&#x4E8E;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x6839;&#x672C;&#x6CA1;&#x8D77;&#x5230;&#x4F5C;&#x7528;&#xFF1B;&#x4F46;&#x662F;&#x4E5F;&#x4E0D;&#x80FD;&#x8FC7;&#x4E8E;&#x9891;&#x7E41;&#xFF0C; CPU &#x7684;&#x8D44;&#x6E90;&#x5927;&#x91CF;&#x6295;&#x8D44;&#x5728;&#x8C03;&#x5EA6;&#x5668;&#x4E0A;&#x66F4;&#x662F;&#x5F97;&#x4E0D;&#x507F;&#x5931;&#x3002;
 &#x6211;&#x4EEC;&#x7684;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x7B97;&#x6CD5;&#x57FA;&#x4E8E;&#x65F6;&#x949F;&#x4E2D;&#x65AD;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x5728;&#x65F6;&#x949F;&#x4E2D;&#x65AD;&#x4E2D;&#x8FDB;&#x5165;&#x8C03;&#x5EA6;&#x5668;&#x770B;&#x770B;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x662F;&#x5426;&#x9700;&#x8981;&#x5207;&#x6362;&#x51FA;&#x53BB;&#x3002;
 &#x56E0;&#x6B64;&#xFF0C;&#x8C03;&#x5EA6;&#x7B97;&#x6CD5;&#x7684;&#x63A5;&#x53E3; <code>Scheduler</code> &#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/mod.rs</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">mod</span> scheduler<span class="token punctuation">;</span>
-
-<span class="token comment">// src/process/scheduler.rs</span>
-
-<span class="token keyword">use</span> <span class="token keyword">super</span><span class="token punctuation">::</span>Tid<span class="token punctuation">;</span>
-
+<pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/scheduler.rs</span>
 <span class="token keyword">pub</span> <span class="token keyword">trait</span> Scheduler <span class="token punctuation">{</span>
     <span class="token comment">// &#x5982;&#x679C; tid &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8868;&#x660E;&#x5C06;&#x4E00;&#x4E2A;&#x65B0;&#x7EBF;&#x7A0B;&#x52A0;&#x5165;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;</span>
     <span class="token comment">// &#x5426;&#x5219;&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x5DF2;&#x6709;&#x7684;&#x7EBF;&#x7A0B;&#x8981;&#x7EE7;&#x7EED;&#x8FD0;&#x884C;</span>
@@ -1045,22 +1100,9 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="&#x7EBF;&#x7A0B;&#x6C60;&#x63A5;&#x53E3;&#x8BBE;&#x8BA1;">&#x7EBF;&#x7A0B;&#x6C60;&#x63A5;&#x53E3;&#x8BBE;&#x8BA1;</h3>
-<p>&#x8C03;&#x5EA6;&#x7B97;&#x6CD5; <code>Scheduler</code> &#x53EA;&#x7BA1;&#x7406; Tid &#xFF0C;&#x548C;&#x7EBF;&#x7A0B;&#x5E76;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7EBF;&#x7A0B;&#x6C60; <code>Thread</code> &#x6765;&#x7ED9;&#x7EBF;&#x7A0B;&#x548C; Tid &#x5EFA;&#x7ACB;&#x8054;&#x7CFB;&#xFF0C;&#x5C06; <code>Scheduler</code> &#x7684; Tid &#x8C03;&#x5EA6;&#x53D8;&#x6210;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x3002;
+<p>&#x8C03;&#x5EA6;&#x7B97;&#x6CD5; <code>Scheduler</code> &#x53EA;&#x7BA1;&#x7406; Tid &#xFF0C;&#x548C;&#x7EBF;&#x7A0B;&#x5E76;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7EBF;&#x7A0B;&#x6C60; <code>ThreadPool</code> &#x6765;&#x7ED9;&#x7EBF;&#x7A0B;&#x548C; Tid &#x5EFA;&#x7ACB;&#x8054;&#x7CFB;&#xFF0C;&#x5C06; <code>Scheduler</code> &#x7684; Tid &#x8C03;&#x5EA6;&#x53D8;&#x6210;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x3002;
 &#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x521A;&#x88AB;&#x521B;&#x5EFA;&#x65F6;&#x5E76;&#x6CA1;&#x6709;&#x4E00;&#x4E2A; Tid &#xFF0C;&#x8FD9;&#x662F;&#x7EBF;&#x7A0B;&#x6C60;&#x7ED9;&#x7EBF;&#x7A0B;&#x5206;&#x914D;&#x7684;&#x3002;</p>
-<pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/mod.rs</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">mod</span> thread_pool<span class="token punctuation">;</span>
-
-<span class="token comment">// src/process/thread_pool.rs</span>
-
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>process<span class="token punctuation">::</span>scheduler<span class="token punctuation">::</span>Scheduler<span class="token punctuation">;</span>
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>process<span class="token punctuation">::</span>structs<span class="token punctuation">::</span><span class="token operator">*</span><span class="token punctuation">;</span>
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>alloc<span class="token punctuation">::</span><span class="token punctuation">{</span>
-    vec<span class="token punctuation">::</span>Vec<span class="token punctuation">,</span>
-    boxed<span class="token punctuation">::</span>Box<span class="token punctuation">,</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">use</span> <span class="token keyword">crate</span><span class="token punctuation">::</span>process<span class="token punctuation">::</span>Tid<span class="token punctuation">;</span>
-
+<pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/thread_pool.rs</span>
 <span class="token comment">// &#x7EBF;&#x7A0B;&#x6C60;&#x6BCF;&#x4E2A;&#x4F4D;&#x7F6E;&#x7684;&#x4FE1;&#x606F;</span>
 <span class="token keyword">struct</span> ThreadInfo <span class="token punctuation">{</span>
     <span class="token comment">// &#x5360;&#x636E;&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#x7684;&#x7EBF;&#x7A0B;&#x5F53;&#x524D;&#x8FD0;&#x884C;&#x72B6;&#x6001;</span>
@@ -1079,6 +1121,16 @@
     scheduler<span class="token punctuation">:</span> Box<span class="token operator">&lt;</span><span class="token keyword">dyn</span> Scheduler<span class="token operator">&gt;</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h3 id="&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x65B9;&#x6CD5;">&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x65B9;&#x6CD5;</h3>
+<p>&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x8C03;&#x5EA6;&#x76F8;&#x5173;&#x7684;&#x4E00;&#x7CFB;&#x5217;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<ul>
+<li>alloc_tid&#xFF1A;&#x4E3A;&#x65B0;&#x7EBF;&#x7A0B;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x65B0;&#x7684;Tid</li>
+<li>add&#xFF1A;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x53EF;&#x7ACB;&#x5373;&#x5F00;&#x59CB;&#x8FD0;&#x884C;&#x7684;&#x7EBF;&#x7A0B;</li>
+<li>acquire&#xFF1A;&#x4ECE;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x53D6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5F00;&#x59CB;&#x8FD0;&#x884C;</li>
+<li>retrieve&#xFF1A;&#x8BA9;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x4EA4;&#x51FA;CPU&#x8D44;&#x6E90;</li>
+<li>tick&#xFF1A;&#x65F6;&#x949F;&#x4E2D;&#x65AD;&#x65F6;&#x67E5;&#x770B;&#x5F53;&#x524D;&#x6240;&#x8FD0;&#x884C;&#x7EBF;&#x7A0B;&#x662F;&#x5426;&#x8981;&#x5207;&#x6362;&#x51FA;&#x53BB;</li>
+<li>exit&#xFF1A;&#x9000;&#x51FA;&#x7EBF;&#x7A0B;</li>
+</ul>
 <p>&#x4E0B;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x4F9D;&#x6B21;&#x6765;&#x770B;&#x770B;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/process/thread_pool.rs</span>
 
@@ -1106,7 +1158,7 @@
     <span class="token punctuation">}</span>
 
     <span class="token comment">// &#x52A0;&#x5165;&#x4E00;&#x4E2A;&#x53EF;&#x7ACB;&#x5373;&#x5F00;&#x59CB;&#x8FD0;&#x884C;&#x7684;&#x7EBF;&#x7A0B;</span>
-    <span class="token comment">// &#x7EBF;&#x7A0B;&#x72B6;&#x6001; Uninitialed -&gt; Ready</span>
+    <span class="token comment">// &#x7EBF;&#x7A0B;&#x72B6;&#x6001; Uninitialized -&gt; Ready</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> _thread<span class="token punctuation">:</span> Box<span class="token operator">&lt;</span>Thread<span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// &#x5206;&#x914D; Tid</span>
         <span class="token keyword">let</span> tid <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">alloc_tid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1139,8 +1191,7 @@
             <span class="token keyword">return</span> None<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-
-    <span class="token comment">// &#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x5DF2;&#x8FD0;&#x884C;&#x4E86;&#x592A;&#x957F;&#x65F6;&#x95F4;&#x6216;&#x8005;&#x5DF2;&#x8FD0;&#x884C;&#x7ED3;&#x675F;&#xFF0C;&#x9700;&#x8981;&#x5C06; CPU &#x8D44;&#x6E90;&#x4EA4;&#x51FA;&#x53BB;</span>
+    <span class="token comment">// &#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x5DF2;&#x8FD0;&#x884C;&#x4E86;&#x592A;&#x957F;&#x65F6;&#x95F4;&#x6216;&#x8005;&#x5DF2;&#x8FD0;&#x884C;&#x7ED3;&#x675F;&#xFF0C;&#x9700;&#x8981;&#x4EA4;&#x51FA;CPU&#x8D44;&#x6E90;</span>
     <span class="token comment">// &#x4F46;&#x662F;&#x8981;&#x63D0;&#x9192;&#x7EBF;&#x7A0B;&#x6C60;&#x5B83;&#x4ECD;&#x9700;&#x8981;&#x5206;&#x914D; CPU &#x8D44;&#x6E90;</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">retrieve</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> tid<span class="token punctuation">:</span> Tid<span class="token punctuation">,</span> thread<span class="token punctuation">:</span> Box<span class="token operator">&lt;</span>Thread<span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// &#x7EBF;&#x7A0B;&#x6C60;&#x4F4D;&#x7F6E;&#x4E3A;&#x7A7A;&#xFF0C;&#x8868;&#x660E;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x521A;&#x521A;&#x901A;&#x8FC7; exit &#x9000;&#x51FA;</span>
@@ -1151,12 +1202,9 @@
         <span class="token comment">// &#x83B7;&#x53D6;&#x5E76;&#x4FEE;&#x6539;&#x7EBF;&#x7A0B;&#x6C60;&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x7684;&#x4FE1;&#x606F;</span>
         <span class="token keyword">let</span> <span class="token keyword">mut</span> thread_info <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>threads<span class="token punctuation">[</span>tid<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">as_mut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">&quot;thread not exist!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       
         thread_info<span class="token punctuation">.</span>thread <span class="token operator">=</span> <span class="token function">Some</span><span class="token punctuation">(</span>thread<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// &#x6B64;&#x65F6;&#x72B6;&#x6001;&#x53EF;&#x80FD;&#x662F; Status::Sleeping</span>
-        <span class="token comment">// &#x540E;&#x9762;&#x4F1A;&#x63D0;&#x5230;&#x7EBF;&#x7A0B;&#x53EF;&#x80FD;&#x4F1A;&#x81EA;&#x52A8;&#x653E;&#x5F03; CPU &#x8D44;&#x6E90;&#xFF0C;&#x8FDB;&#x5165;&#x7761;&#x7720;&#x72B6;&#x6001;</span>
-        <span class="token comment">// &#x76F4;&#x5230;&#x88AB;&#x5524;&#x9192;&#x4E4B;&#x524D;&#x90FD;&#x4E0D;&#x5FC5;&#x7ED9;&#x5B83;&#x5206;&#x914D;</span>
-        <span class="token comment">// &#x800C;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x72B6;&#x6001;&#x65F6; Running</span>
-        <span class="token comment">// &#x5C31;&#x8BF4;&#x660E;&#x53EA;&#x662F;&#x5355;&#x7EAF;&#x7684;&#x8017;&#x5C3D;&#x4E86;&#x8FD9;&#x6B21;&#x5206;&#x914D; CPU &#x8D44;&#x6E90;</span>
-        <span class="token comment">// &#x4F46;&#x8FD8;&#x8981;&#x5360;&#x7528; CPU &#x8D44;&#x6E90;&#x7EE7;&#x7EED;&#x6267;&#x884C;</span>
+        <span class="token comment">// &#x6B64;&#x65F6;&#x72B6;&#x6001;&#x53EF;&#x80FD;&#x662F; Status::Sleeping(&#x7EBF;&#x7A0B;&#x53EF;&#x80FD;&#x4F1A;&#x81EA;&#x52A8;&#x653E;&#x5F03; CPU &#x8D44;&#x6E90;&#xFF0C;&#x8FDB;&#x5165;&#x7761;&#x7720;&#x72B6;&#x6001;),</span>
+        <span class="token comment">// &#x76F4;&#x5230;&#x88AB;&#x5524;&#x9192;&#x4E4B;&#x524D;&#x90FD;&#x4E0D;&#x5FC5;&#x7ED9;&#x5B83;&#x5206;&#x914D;&#x3002;</span>
+        <span class="token comment">// &#x800C;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x72B6;&#x6001;&#x662F;Running,&#x5C31;&#x8BF4;&#x660E;&#x53EA;&#x662F;&#x5355;&#x7EAF;&#x7684;&#x8017;&#x5C3D;&#x4E86;&#x8FD9;&#x6B21;&#x5206;&#x914D;CPU&#x8D44;&#x6E90;,&#x4F46;&#x8FD8;&#x8981;&#x5360;&#x7528;CPU&#x8D44;&#x6E90;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x3002;</span>
         <span class="token keyword">if</span> <span class="token keyword">let</span> Status<span class="token punctuation">::</span><span class="token function">Running</span><span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token operator">=</span> thread_info<span class="token punctuation">.</span>status <span class="token punctuation">{</span>
             <span class="token comment">// Running -&gt; Ready</span>
             thread_info<span class="token punctuation">.</span>status <span class="token operator">=</span> Status<span class="token punctuation">::</span>Ready<span class="token punctuation">;</span>
@@ -1164,16 +1212,12 @@
             <span class="token keyword">self</span><span class="token punctuation">.</span>scheduler<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tid<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-
-    <span class="token comment">// Scheduler &#x7684;&#x7B80;&#x5355;&#x5305;&#x88C5;</span>
-    <span class="token comment">// &#x65F6;&#x949F;&#x4E2D;&#x65AD;&#x65F6;&#x67E5;&#x770B;&#x5F53;&#x524D;&#x6240;&#x8FD0;&#x884C;&#x7EBF;&#x7A0B;&#x662F;&#x5426;&#x8981;&#x5207;&#x6362;&#x51FA;&#x53BB;</span>
+    <span class="token comment">// Scheduler &#x7684;&#x7B80;&#x5355;&#x5305;&#x88C5;&#xFF1A;&#x65F6;&#x949F;&#x4E2D;&#x65AD;&#x65F6;&#x67E5;&#x770B;&#x5F53;&#x524D;&#x6240;&#x8FD0;&#x884C;&#x7EBF;&#x7A0B;&#x662F;&#x5426;&#x8981;&#x5207;&#x6362;&#x51FA;&#x53BB;</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">tick</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> bool <span class="token punctuation">{</span>
         <span class="token keyword">let</span> ret <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>scheduler<span class="token punctuation">.</span><span class="token function">tick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         ret
     <span class="token punctuation">}</span>
-
-    <span class="token comment">// &#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#x4E86;</span>
-    <span class="token comment">// &#x7EBF;&#x7A0B;&#x72B6;&#x6001; Running -&gt; Exited</span>
+    <span class="token comment">// &#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#x4E86;&#xFF0C;&#x7EBF;&#x7A0B;&#x72B6;&#x6001; Running -&gt; Exited</span>
     <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> tid<span class="token punctuation">:</span> Tid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// &#x6E05;&#x7A7A;&#x7EBF;&#x7A0B;&#x6C60;&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;</span>
         <span class="token keyword">self</span><span class="token punctuation">.</span>threads<span class="token punctuation">[</span>tid<span class="token punctuation">]</span> <span class="token operator">=</span> None<span class="token punctuation">;</span>
@@ -1182,7 +1226,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60; <code>ThreadPool</code> &#xFF0C;&#x5B83;&#x5185;&#x542B;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x4F18;&#x79C0;&#x7684;&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x5668;&#x3002;&#x4E0B;&#x4E00;&#x8282;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x8C03;&#x5EA6;&#x7EBF;&#x7A0B; <code>idle</code> &#x4EE5;&#x53CA;&#x8C03;&#x5EA6;&#x5355;&#x5143; <code>Processor</code>&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60; <code>ThreadPool</code> &#xFF0C;&#x5B83;&#x5185;&#x542B;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x9519;&#x7684;&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x5668;&#x3002;&#x4E0B;&#x4E00;&#x8282;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x8C03;&#x5EA6;&#x7EBF;&#x7A0B; <code>idle</code> &#x4EE5;&#x53CA;&#x8C03;&#x5EA6;&#x5355;&#x5143; <code>Processor</code>&#x3002;</p>
 <p><div id="page-footer" class="localized-footer"><hr><p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></p>
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <div id="gitalk-container"></div>
@@ -1242,12 +1286,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"线程池与线程管理","level":"1.9.1","depth":2,"next":{"title":"内核调度线程 idle","level":"1.9.2","depth":2,"path":"chapter7/part2.md","ref":"chapter7/part2.md","articles":[]},"previous":{"title":"第七章：线程调度","level":"1.9","depth":1,"path":"chapter7/introduction.md","ref":"chapter7/introduction.md","articles":[{"title":"线程池与线程管理","level":"1.9.1","depth":2,"path":"chapter7/part1.md","ref":"chapter7/part1.md","articles":[]},{"title":"内核调度线程 idle","level":"1.9.2","depth":2,"path":"chapter7/part2.md","ref":"chapter7/part2.md","articles":[]},{"title":"线程调度之 Round Robin算法","level":"1.9.3","depth":2,"path":"chapter7/part3.md","ref":"chapter7/part3.md","articles":[]},{"title":"[线程调度测试]","level":"1.9.4","depth":2,"path":"chapter7/part4.md","ref":"chapter7/part4.md","articles":[]},{"title":"总结与展望","level":"1.9.5","depth":2,"path":"chapter7/part5.md","ref":"chapter7/part5.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter7/part1.md","mtime":"2019-12-10T15:47:36.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"线程池与线程管理","level":"1.9.1","depth":2,"next":{"title":"内核调度线程 idle","level":"1.9.2","depth":2,"path":"chapter7/part2.md","ref":"chapter7/part2.md","articles":[]},"previous":{"title":"第七章：线程调度","level":"1.9","depth":1,"path":"chapter7/introduction.md","ref":"chapter7/introduction.md","articles":[{"title":"线程池与线程管理","level":"1.9.1","depth":2,"path":"chapter7/part1.md","ref":"chapter7/part1.md","articles":[]},{"title":"内核调度线程 idle","level":"1.9.2","depth":2,"path":"chapter7/part2.md","ref":"chapter7/part2.md","articles":[]},{"title":"线程调度之 Round Robin算法","level":"1.9.3","depth":2,"path":"chapter7/part3.md","ref":"chapter7/part3.md","articles":[]},{"title":"[线程调度测试]","level":"1.9.4","depth":2,"path":"chapter7/part4.md","ref":"chapter7/part4.md","articles":[]},{"title":"总结与展望","level":"1.9.5","depth":2,"path":"chapter7/part5.md","ref":"chapter7/part5.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter7/part1.md","mtime":"2020-01-29T07:26:47.921Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1261,6 +1306,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1287,6 +1336,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>

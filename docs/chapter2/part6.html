@@ -12,6 +12,7 @@
         
         
     
+    
     <link rel="stylesheet" href="../gitbook/style.css">
 
     
@@ -34,6 +35,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
                 
             
                 
@@ -60,6 +65,9 @@
         
     
         
+    
+
+
     
 
         
@@ -795,7 +803,7 @@
                 <a href="../chapter8/introduction.html">
             
                     
-                    第八章：用户进程
+                    第八章：进程
             
                 </a>
             
@@ -817,7 +825,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part2.html">
+        <li class="chapter " data-level="1.10.2" data-path="../chapter8/part1_1.html">
+            
+                <a href="../chapter8/part1_1.html">
+            
+                    
+                    合并内核与应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part2.html">
             
                 <a href="../chapter8/part2.html">
             
@@ -830,7 +851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../chapter8/part3.html">
+        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part3.html">
             
                 <a href="../chapter8/part3.html">
             
@@ -843,12 +864,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../chapter8/part4.html">
+        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part4.html">
             
                 <a href="../chapter8/part4.html">
             
                     
-                    [创建用户线程]
+                    [创建进程]
             
                 </a>
             
@@ -856,7 +877,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.5" data-path="../chapter8/part5.html">
+        <li class="chapter " data-level="1.10.6" data-path="../chapter8/part5.html">
             
                 <a href="../chapter8/part5.html">
             
@@ -945,6 +966,51 @@
             
         </li>
     
+        <li class="chapter " data-level="1.12" data-path="../chapter10/introduction.html">
+            
+                <a href="../chapter10/introduction.html">
+            
+                    
+                    第十章：同步互斥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    [附录]
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../appendix/inline_asm.html">
+            
+                <a href="../appendix/inline_asm.html">
+            
+                    
+                    内链汇编
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -992,12 +1058,12 @@
                                 
                                 <h2 id="&#x5C01;&#x88C5;-sbi-&#x63A5;&#x53E3;">&#x5C01;&#x88C5; SBI &#x63A5;&#x53E3;</h2>
 <ul>
-<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ad57b607" target="_blank">&#x4EE3;&#x7801;</a></li>
+<li><a href="https://github.com/rcore-os/rCore_tutorial/tree/ch2-pa7" target="_blank">&#x4EE3;&#x7801;</a></li>
 </ul>
 <h3 id="&#x4EE3;&#x7801;&#x6574;&#x7406;">&#x4EE3;&#x7801;&#x6574;&#x7406;</h3>
 <p>&#x5C06;&#x4E00;&#x5207;&#x90FD;&#x5199;&#x5728;&#x4E00;&#x4E2A; <code>main.rs</code> &#x4E2D;&#x7EC8;&#x7A76;&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x597D;&#x7684;&#x4E60;&#x60EF;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4EE3;&#x7801;&#x5206;&#x4E3A;&#x4E0D;&#x540C;&#x6A21;&#x5757;&#x6574;&#x7406;&#x4E00;&#x4E0B;&#x3002;</p>
 <p>&#x6211;&#x4EEC;&#x5148;&#x5C06; <code>console_putchar</code> &#x51FD;&#x6570;&#x5220;&#x6389;&#xFF0C;&#x5E76;&#x5C06; <code>rust_main</code> &#x4E2D;&#x8C03;&#x7528; <code>console_putchar</code> &#x7684;&#x90E8;&#x5206;&#x4E5F;&#x5220;&#x9664;&#x3002;</p>
-<p>&#x968F;&#x540E;&#x5C06; <code>rust_main</code> &#x62BD;&#x53D6;&#x51FA;&#x6765;&#xFF1A;</p>
+<p>&#x968F;&#x540E;&#x5C06; <code>rust_main</code> &#x62BD;&#x53D6;&#x5230;<code>init.rs</code>&#x4E2D;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/init.rs</span>
 
 <span class="token function">global_asm!</span><span class="token punctuation">(</span><span class="token function">include_str!</span><span class="token punctuation">(</span><span class="token string">&quot;boot/entry64.asm&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1007,7 +1073,7 @@
     <span class="token keyword">loop</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x5C06;&#x8BED;&#x4E49;&#x9879;&#x4EEC;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#xFF1A;</p>
+<p>&#x5C06;&#x8BED;&#x4E49;&#x9879;&#x4EEC;&#x62BD;&#x53D6;&#x5230;<code>lang_items.rs</code>&#x4E2D;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/lang_items.rs</span>
 
 <span class="token keyword">use</span> core<span class="token punctuation">::</span>panic<span class="token punctuation">::</span>PanicInfo<span class="token punctuation">;</span>
@@ -1022,7 +1088,7 @@
     <span class="token function">panic!</span><span class="token punctuation">(</span><span class="token string">&quot;abort!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x5728; <code>lib.rs</code> &#x4E2D;&#x5F15;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x5B50;&#x6A21;&#x5757;&#xFF1A;</p>
+<p>&#x5E76;&#x5728;&#x4EE3;&#x8868;<code>os crate</code>&#x7684; <code>lib.rs</code> &#x4E2D;&#x5F15;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x5B50;&#x6A21;&#x5757;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/lib.rs</span>
 
 <span class="token attribute attr-name">#![no_std]</span>
@@ -1032,7 +1098,7 @@
 <span class="token keyword">mod</span> init<span class="token punctuation">;</span>
 <span class="token keyword">mod</span> lang_items<span class="token punctuation">;</span>
 </code></pre>
-<p>&#x4EE5;&#x53CA;&#x6700;&#x7EC8;&#x5269;&#x4E0B;&#x7684;&#x5B64;&#x96F6;&#x96F6;&#x7684; <code>main.rs</code>&#x3002;</p>
+<p>&#x4EE5;&#x53CA;&#x53EA;&#x9700;&#x4F7F;&#x7528;<code>os crate</code>&#x7684;&#x5B64;&#x96F6;&#x96F6;&#x7684; <code>main.rs</code>&#x3002;</p>
 <pre class="language-"><code class="lang-rust"><span class="token comment">// src/main.rs</span>
 
 <span class="token attribute attr-name">#![no_std]</span>
@@ -1064,10 +1130,10 @@
 <p><strong>[info] &#x62D3;&#x5C55;&#x5185;&#x8054;&#x6C47;&#x7F16;</strong></p>
 <p>Rust &#x4E2D;&#x62D3;&#x5C55;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x7684;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token function">asm!</span><span class="token punctuation">(</span>assembler template
-   <span class="token punctuation">:</span> <span class="token comment">/* output operands */</span>
-   <span class="token punctuation">:</span> <span class="token comment">/* input operands */</span>
+    <span class="token punctuation">:</span> <span class="token comment">/* output operands */</span>
+    <span class="token punctuation">:</span> <span class="token comment">/* input operands */</span>
     <span class="token punctuation">:</span> <span class="token comment">/* clobbered registers list */</span>
-   <span class="token punctuation">:</span> <span class="token comment">/* option */</span>
+    <span class="token punctuation">:</span> <span class="token comment">/* option */</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x5176;&#x4E2D;&#xFF1A;</p>
@@ -1076,6 +1142,7 @@
 <li><code>output operands</code> &#x4EE5;&#x53CA; <code>input operands</code> &#x5206;&#x522B;&#x8868;&#x793A;&#x8F93;&#x51FA;&#x548C;&#x8F93;&#x5165;&#xFF0C;&#x4F53;&#x73B0;&#x7740;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E0E; Rust &#x4EE3;&#x7801;&#x7684;&#x4EA4;&#x4E92;&#x3002;&#x6BCF;&#x4E2A;&#x8F93;&#x51FA;&#x548C;&#x8F93;&#x5165;&#x90FD;&#x662F;&#x7528; <code>&#x201C;constraint&#x201D;(expr)</code> &#x7684;&#x5F62;&#x5F0F;&#x7ED9;&#x51FA;&#x7684;&#xFF0C;&#x5176;&#x4E2D; <code>expr</code> &#x90E8;&#x5206;&#x662F;&#x4E00;&#x4E2A; Rust &#x8868;&#x8FBE;&#x5F0F;&#x4F5C;&#x4E3A;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x7684;&#x8F93;&#x5165;&#x3001;&#x8F93;&#x51FA;&#xFF0C;&#x901A;&#x5E38;&#x4E3A;&#x4E86;&#x7B80;&#x5355;&#x8D77;&#x89C1;&#x4EC5;&#x7528;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x3002;&#x800C; <code>constraint</code> &#x5219;&#x662F;&#x4F60;&#x7528;&#x6765;&#x544A;&#x8BC9;&#x7F16;&#x8BD1;&#x5668;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x53C2;&#x6570;&#x4F20;&#x9012;&#xFF1B;</li>
 <li><code>clobbered registers list</code> &#x9700;&#x8981;&#x7ED9;&#x51FA;&#x4F60;&#x5728;&#x6574;&#x6BB5;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x9664;&#x4E86;&#x7528;&#x6765;&#x4F5C;&#x4E3A;&#x8F93;&#x5165;&#x3001;&#x8F93;&#x51FA;&#x7684;&#x5BC4;&#x5B58;&#x5668;&#x4E4B;&#x5916;&#xFF0C;&#x8FD8;&#x66FE;&#x7ECF;&#x663E;&#x5F0F;/&#x9690;&#x5F0F;&#x7684;&#x4FEE;&#x6539;&#x8FC7;&#x54EA;&#x4E9B;&#x5BC4;&#x5B58;&#x5668;&#x3002;&#x7531;&#x4E8E;&#x7F16;&#x8BD1;&#x5668;&#x5BF9;&#x4E8E;&#x6C47;&#x7F16;&#x6307;&#x4EE4;&#x6240;&#x77E5;&#x6709;&#x9650;&#xFF0C;&#x4F60;&#x5FC5;&#x987B;&#x624B;&#x52A8;&#x544A;&#x8BC9;&#x5B83;&#x201C;&#x6211;&#x53EF;&#x80FD;&#x4F1A;&#x4FEE;&#x6539;&#x8FD9;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;&#x201D;&#xFF0C;&#x8FD9;&#x6837;&#x5B83;&#x5728;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;&#x65F6;&#x5C31;&#x4F1A;&#x66F4;&#x52A0;&#x5C0F;&#x5FC3;&#xFF1B;</li>
 <li><code>option</code> &#x662F; Rust &#x8BED;&#x8A00;&#x5185;&#x8054;&#x6C47;&#x7F16;<strong>&#x7279;&#x6709;</strong>&#x7684;(&#x76F8;&#x5BF9;&#x4E8E; C &#x8BED;&#x8A00;)&#xFF0C;&#x7528;&#x6765;&#x5BF9;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x6574;&#x4F53;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x60F3;&#x8FDB;&#x4E00;&#x6B65;&#x4E86;&#x89E3;&#x4E0A;&#x9762;&#x4F8B;&#x5B50;&#x4E2D;&#x7684;&#x5185;&#x8054;&#x6C47;&#x7F16;(<strong>&quot;asm!&quot;</strong>)&#xFF0C;&#x8BF7;&#x53C2;&#x8003;<a href="../appendix/inline_asm.html">&#x9644;&#x5F55;&#xFF1A;&#x5185;&#x8054;&#x6C47;&#x7F16;</a>&#x3002;</li>
 </ul>
 </blockquote>
 <p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x5C06; <code>ecall</code> &#x6307;&#x4EE4;&#x7684;&#x4F7F;&#x7528;&#x5C01;&#x88C5;&#x8D77;&#x6765;&#xFF1A;</p>
@@ -1102,7 +1169,7 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&#x8F93;&#x51FA;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7ED3;&#x679C;&#x4FDD;&#x5B58;&#x5230;&#x53D8;&#x91CF; <code>ret</code> &#x4E2D;&#xFF0C;&#x9650;&#x5236;&#x6761;&#x4EF6; <code>{x10}</code> &#x544A;&#x8BC9;&#x7F16;&#x8BD1;&#x5668;&#x4F7F;&#x7528;&#x5BC4;&#x5B58;&#x5668; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mn>0</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>0</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">x_{10}(a_0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span> &#xFF0C;&#x524D;&#x9762;&#x7684; <code>=</code> &#x8868;&#x660E;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4F1A;&#x4FEE;&#x6539;&#x8BE5;&#x5BC4;&#x5B58;&#x5668;&#x5E76;&#x4F5C;&#x4E3A;&#x6700;&#x540E;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x3002;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B; <code>output operands</code> &#x7684; constraint &#x90E8;&#x5206;&#x524D;&#x9762;&#x90FD;&#x8981;&#x52A0;&#x4E0A; <code>=</code> &#x3002;</p>
-<p>&#x8F93;&#x5165;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5206;&#x522B;&#x901A;&#x8FC7;&#x5BC4;&#x5B58;&#x5668; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mn>0</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>0</mn></msub><mo>)</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mn>1</mn><mn>1</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>)</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mn>1</mn><mn>2</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>2</mn></msub><mo>)</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mn>1</mn><mn>7</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>7</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">x_{10}(a_0),x_{11}(a_1),x_{12}(a_2),x_{17}(a_7)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">7</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">7</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span> &#x4F20;&#x5165;&#x53C2;&#x6570; <code>arg0,arg1,arg2,which</code> &#xFF0C;&#x4ED6;&#x4EEC;&#x5206;&#x522B;&#x4EE3;&#x8868;&#x63A5;&#x53E3;&#x53EF;&#x80FD;&#x6240;&#x9700;&#x7684;&#x4E09;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#xFF0C;&#x4EE5;&#x53CA;&#x7528;&#x6765;&#x533A;&#x5206;&#x6211;&#x4EEC;&#x8C03;&#x7528;&#x7684;&#x662F;&#x54EA;&#x4E2A;&#x63A5;&#x53E3;&#x7684; <code>SBI Extension ID</code> &#x3002;&#x8FD9;&#x91CC;&#x4E4B;&#x6240;&#x4EE5;&#x63D0;&#x4F9B;&#x4E09;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#x662F;&#x4E3A;&#x4E86;&#x5C06;&#x6240;&#x6709;&#x63A5;&#x53E3;&#x56CA;&#x62EC;&#x8FDB;&#x53BB;&#xFF0C;&#x5BF9;&#x4E8E;&#x67D0;&#x4E9B;&#x63A5;&#x53E3;&#x6709;&#x7684;&#x8F93;&#x5165;&#x53C2;&#x6570;&#x662F;&#x5197;&#x4F59;&#x7684;&#xFF0C;&#x6BD4;&#x5982; <code>sbi_console_putchar</code> &#x7531;&#x4E8E;&#x53EA;&#x9700;&#x4E00;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#xFF0C;&#x5B83;&#x5C31;&#x53EA;&#x5173;&#x5FC3;&#x5BC4;&#x5B58;&#x5668; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">a_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> &#x7684;&#x503C;&#x3002;</p>
+<p>&#x8F93;&#x5165;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5206;&#x522B;&#x901A;&#x8FC7;&#x5BC4;&#x5B58;&#x5668; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mrow><mn>1</mn><mn>0</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>0</mn></msub><mo>)</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mn>1</mn><mn>1</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>)</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mn>1</mn><mn>2</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>2</mn></msub><mo>)</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mn>1</mn><mn>7</mn></mrow></msub><mo>(</mo><msub><mi>a</mi><mn>7</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">x_{10}(a_0),x_{11}(a_1),x_{12}(a_2),x_{17}(a_7)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathrm mtight">1</span><span class="mord mathrm mtight">7</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">7</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span><span class="mclose">)</span></span></span></span> &#x4F20;&#x5165;&#x53C2;&#x6570; <code>arg0,arg1,arg2,which</code> &#xFF0C;&#x5B83;&#x4EEC;&#x5206;&#x522B;&#x4EE3;&#x8868;&#x63A5;&#x53E3;&#x53EF;&#x80FD;&#x6240;&#x9700;&#x7684;&#x4E09;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#xFF08;<code>arg0,arg1,arg2</code>&#xFF09;&#xFF0C;&#x4EE5;&#x53CA;&#x7528;&#x6765;&#x533A;&#x5206;&#x6211;&#x4EEC;&#x8C03;&#x7528;&#x7684;&#x662F;&#x54EA;&#x4E2A;&#x63A5;&#x53E3;&#x7684; <code>SBI Extension ID(</code>which<code>) &#x3002;&#x8FD9;&#x91CC;&#x4E4B;&#x6240;&#x4EE5;&#x63D0;&#x4F9B;&#x4E09;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#x662F;&#x4E3A;&#x4E86;&#x5C06;&#x6240;&#x6709;&#x63A5;&#x53E3;&#x56CA;&#x62EC;&#x8FDB;&#x53BB;&#xFF0C;&#x5BF9;&#x4E8E;&#x67D0;&#x4E9B;&#x63A5;&#x53E3;&#x6709;&#x7684;&#x8F93;&#x5165;&#x53C2;&#x6570;&#x662F;&#x5197;&#x4F59;&#x7684;&#xFF0C;&#x6BD4;&#x5982;</code>sbi_console_putchar`` &#x7531;&#x4E8E;&#x53EA;&#x9700;&#x4E00;&#x4E2A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#xFF0C;&#x5B83;&#x5C31;&#x53EA;&#x5173;&#x5FC3;&#x5BC4;&#x5B58;&#x5668; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">a_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="msupsub"><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord mathrm mtight">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">&#x200B;</span></span>&#x200B;</span></span></span></span></span></span></span> &#x7684;&#x503C;&#x3002;</p>
 <p>&#x5728; clobbered registers list &#x4E2D;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x4E00;&#x4E2A; <code>&quot;memory&quot;</code> &#xFF0C;&#x8FD9;&#x7528;&#x6765;&#x544A;&#x8BC9;&#x7F16;&#x8BD1;&#x5668;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x9690;&#x5F0F;&#x7684;&#x4FEE;&#x6539;&#x4E86;&#x5728;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E2D;&#x672A;&#x66FE;&#x51FA;&#x73B0;&#x7684;&#x67D0;&#x4E9B;&#x5BC4;&#x5B58;&#x5668;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x5B83;&#x4E5F;&#x4E0D;&#x80FD;&#x8BA4;&#x4E3A;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x4E2D;&#x672A;&#x51FA;&#x73B0;&#x7684;&#x5BC4;&#x5B58;&#x5668;&#x5C31;&#x4F1A;&#x5728;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x524D;&#x540E;&#x4FDD;&#x6301;&#x4E0D;&#x53D8;&#x4E86;&#x3002;</p>
 <p>&#x5728; option &#x90E8;&#x5206;&#x51FA;&#x73B0;&#x4E86; <code>&quot;volatile&quot;</code> &#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x5728;&#x5F88;&#x591A;&#x5730;&#x65B9;&#x770B;&#x5230;&#x8FC7;&#x8FD9;&#x4E2A;&#x5355;&#x8BCD;&#x3002;&#x4E0D;&#x8FC7;&#x5728;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x4E2D;&#xFF0C;&#x4E3B;&#x8981;&#x610F;&#x601D;&#x662F;&#x544A;&#x8BC9;&#x7F16;&#x8BD1;&#x5668;&#xFF0C;&#x4E0D;&#x8981;&#x5C06;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x79FB;&#x52A8;&#x5230;&#x522B;&#x7684;&#x5730;&#x65B9;&#x53BB;&#x3002;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x901A;&#x5E38;&#x4F1A;&#x5BF9;&#x7FFB;&#x8BD1;&#x5B8C;&#x7684;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#xFF0C;&#x5176;&#x4E2D;&#x5C31;&#x5305;&#x62EC;&#x5BF9;&#x6307;&#x4EE4;&#x7684;&#x4F4D;&#x7F6E;&#x8FDB;&#x884C;&#x8C03;&#x6362;&#x3002;&#x50CF;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x8C03;&#x6362;&#x53EF;&#x80FD;&#x5C31;&#x4F1A;&#x4EA7;&#x751F;&#x6211;&#x4EEC;&#x9884;&#x671F;&#x4E4B;&#x5916;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x8C28;&#x614E;&#x8D77;&#x89C1;&#xFF0C;&#x6211;&#x4EEC;&#x9488;&#x5BF9;&#x5185;&#x8054;&#x6C47;&#x7F16;&#x7981;&#x7528;&#x8FD9;&#x4E00;&#x4F18;&#x5316;&#x3002;</p>
 <p>&#x63A5;&#x7740;&#x5229;&#x7528; <code>sbi_call</code> &#x53C2;&#x8003; OpenSBI &#x6587;&#x6863;&#x5B9E;&#x73B0;&#x5BF9;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#xFF1A;</p>
@@ -1116,47 +1183,7 @@
     <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_CONSOLE_GETCHAR<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">!</span> <span class="token punctuation">{</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_SHUTDOWN<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">unreachable!</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">set_timer</span><span class="token punctuation">(</span>stime_value<span class="token punctuation">:</span> u64<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token attribute attr-name">#[cfg(target_pointer_width = &quot;32&quot;)]</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>
-        SBI_SET_TIMER<span class="token punctuation">,</span>
-        stime_value <span class="token keyword">as</span> usize<span class="token punctuation">,</span>
-        <span class="token punctuation">(</span>stime_value <span class="token operator">&gt;&gt;</span> <span class="token number">32</span><span class="token punctuation">)</span> <span class="token keyword">as</span> usize<span class="token punctuation">,</span>
-        <span class="token number">0</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token attribute attr-name">#[cfg(target_pointer_width = &quot;64&quot;)]</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_SET_TIMER<span class="token punctuation">,</span> stime_value <span class="token keyword">as</span> usize<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">clear_ipi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_CLEAR_IPI<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">send_ipi</span><span class="token punctuation">(</span>hart_mask<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_SEND_IPI<span class="token punctuation">,</span> <span class="token operator">&amp;</span>hart_mask <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> _ <span class="token keyword">as</span> usize<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">remote_fence_i</span><span class="token punctuation">(</span>hart_mask<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_REMOTE_FENCE_I<span class="token punctuation">,</span> <span class="token operator">&amp;</span>hart_mask <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> _ <span class="token keyword">as</span> usize<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">remote_sfence_vma</span><span class="token punctuation">(</span>hart_mask<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> _start<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> _size<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>SBI_REMOTE_SFENCE_VMA<span class="token punctuation">,</span> <span class="token operator">&amp;</span>hart_mask <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> _ <span class="token keyword">as</span> usize<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function">remote_sfence_vma_asid</span><span class="token punctuation">(</span>hart_mask<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> _start<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> _size<span class="token punctuation">:</span> usize<span class="token punctuation">,</span> _asid<span class="token punctuation">:</span> usize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">sbi_call</span><span class="token punctuation">(</span>
-        SBI_REMOTE_SFENCE_VMA_ASID<span class="token punctuation">,</span>
-        <span class="token operator">&amp;</span>hart_mask <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> _ <span class="token keyword">as</span> usize<span class="token punctuation">,</span>
-        <span class="token number">0</span><span class="token punctuation">,</span>
-        <span class="token number">0</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<span class="token punctuation">...</span>
 
 <span class="token keyword">const</span> SBI_SET_TIMER<span class="token punctuation">:</span> usize <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> SBI_CONSOLE_PUTCHAR<span class="token punctuation">:</span> usize <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
@@ -1228,12 +1255,13 @@ gitalk.render("gitalk-container");
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"封装 SBI 接口","level":"1.4.6","depth":2,"next":{"title":"[实现格式化输出]","level":"1.4.7","depth":2,"path":"chapter2/part7.md","ref":"chapter2/part7.md","articles":[]},"previous":{"title":"[使用 Qemu 运行内核]","level":"1.4.5","depth":2,"path":"chapter2/part5.md","ref":"chapter2/part5.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter2/part6.md","mtime":"2019-12-10T15:47:36.283Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-14T22:36:01.623Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"封装 SBI 接口","level":"1.4.6","depth":2,"next":{"title":"[实现格式化输出]","level":"1.4.7","depth":2,"path":"chapter2/part7.md","ref":"chapter2/part7.md","articles":[]},"previous":{"title":"[使用 Qemu 运行内核]","level":"1.4.5","depth":2,"path":"chapter2/part5.md","ref":"chapter2/part5.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","chapter-fold","katex","alerts","emphasize","-highlight","prism","localized-footer","mermaid-gb3"],"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"emphasize":{},"search":{},"localized-footer":{"filename":"extensions/comment/gitalk.html","hline":"true"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-element":{"elements":[".gitbook-link"]},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"mermaid-gb3":{},"alerts":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter2/part6.md","mtime":"2020-01-27T16:05:58.043Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-31T02:38:47.984Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
     
@@ -1247,6 +1275,10 @@ gitalk.render("gitalk-container");
     
         
         <script src="../gitbook/gitbook-plugin-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
         
     
         
@@ -1273,6 +1305,8 @@ gitalk.render("gitalk-container");
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
     
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
 
     </body>
 </html>
